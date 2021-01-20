@@ -1,0 +1,5 @@
+<?php
+require_once '../../function/db.php';
+$ids=$_POST['ids'];$tapel=$_POST['tapel'];
+?>
+						<div class="modal-body">							<div class="form-group form-group-default">								<label>Jenis Tunggakan</label>								<input type="hidden" name="idsiswa" class="form-control" value="<?php echo $ids;?>">								<input type="hidden" name="tapel" class="form-control" value="<?php echo $tapel;?>">								<input type="hidden" name="jenis" class="form-control" value="1">								<input type="text" readonly class="form-control" value="Infaq Bulanan">							</div>							<div class="form-group form-group-default">								<label>Tarif</label>								<input type="text" name="tarif" autocomplete=off class="form-control" placeholder="Biaya">							</div>                        </div>                        <div class="modal-footer">                            <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Tutup</button>							<button type="submit" class="btn btn-danger waves-effect waves-light">Simpan</button>						</div>						

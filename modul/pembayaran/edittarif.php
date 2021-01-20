@@ -1,0 +1,7 @@
+<?php
+require_once '../../function/db_connect.php';
+$idr=$_POST['idspp'];$jenis=$_POST['jenis'];if($jenis==1){	$utt=$connect->query("SELECT * FROM tarif_spp WHERE id='$idr'")->fetch_assoc();}else{
+	$utt=$connect->query("SELECT * FROM tunggakan_lain WHERE id='$idr'")->fetch_assoc();};
+//$idmp=$utt['jenis'];$mpl=$connect->query("select * from jenis_tunggakan where id_tunggakan='$jenis'")->fetch_assoc();
+?>
+						<div class="modal-body">							<div class="form-group">								<label>Jenis Tunggakan</label>								<input type="hidden" name="idkd" class="form-control" value="<?php echo $idr;?>">								<input type="hidden" name="jenis" class="form-control" value="<?php echo $jenis;?>">								<input type="text" autocomplete=off class="form-control" readonly placeholder="Name" value="<?=$mpl['nama_tunggakan'];?>">							</div>							<div class="form-group">							  <label>Tarif</label>							  <div class="input-group">								<div class="input-group-prepend">								  <div class="input-group-text">									Rp.								  </div>								</div>								<input type="text" name="tarif" class="form-control currency" autocomplete=off value="<?=$utt['tarif'];?>">							  </div>							</div>                        </div>                        <div class="modal-footer">                            <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Tutup</button>							<button type="submit" class="btn btn-danger waves-effect waves-light">Simpan</button>						</div>

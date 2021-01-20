@@ -1,0 +1,7 @@
+<?php
+require_once '../../function/db_connect.php';
+$idr=$_POST['rowid'];
+$utt=$connect->query("SELECT * FROM tunggakan_lain WHERE id='$idr'")->fetch_assoc();
+$idmp=$utt['jenis'];$mpl=$connect->query("select * from jenis_tunggakan where id_tunggakan='$idmp'")->fetch_assoc();
+?>
+						<div class="modal-body">							<div class="form-group form-group-default">								<label>Jenis Tunggakan</label>								<input type="hidden" name="idkd" class="form-control" value="<?php echo $idr;?>">								<input type="hidden" name="jenis" class="form-control" value="<?php echo $idmp;?>">								<input type="text" autocomplete=off class="form-control" readonly placeholder="Name" value="<?=$mpl['nama_tunggakan'];?>">							</div>							<div class="form-group form-group-default">								<label>Tarif</label>								<input type="text" name="tarif" autocomplete=off class="form-control" placeholder="Name" value="<?=$utt['tarif'];?>">							</div>                        </div>                        <div class="modal-footer">                            <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Tutup</button>							<button type="submit" class="btn btn-danger waves-effect waves-light">Simpan</button>						</div>						
