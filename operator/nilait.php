@@ -1,0 +1,1 @@
+<?phpinclude("../function/db.php");$kelas=$_GET['kelas'];$ab=substr($kelas,0,1);if($kelas==0){}else{?><option value="0">Pilih Penilaian</option><option value="1">Juz Amma</option><option value="2">Hadits Arbain</option><option value="3">Surah Pilihan</option><option value="4">Doa Sehari-hari</option><option value="5">Hadits Pilihan</option><?php } ?>
