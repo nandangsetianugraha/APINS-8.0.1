@@ -57,12 +57,17 @@ Kelas <?=$m['nama_rombel'];?>
 			$jbayar=$jbayar+$jumlahbayar['dibayar'];
 			//$jsisa=$jsisa+($jtot-$jbayar);
 			if($totaltunggakan==0){}else{
+				if($idtung==1){
+					$sisabulan=$connect->query("select sum(bayar) as jspp from pembayaran left join penempatan on penempatan.peserta_didik_id=pembayaran.peserta_didik_id where penempatan.rombel='$idromb' and penempatan.tapel='$tapel' and pembayaran.tapel='$tapel' and pembayaran.jenis='1' and pembayaran.bulan <= '$bulan'")->fetch_assoc();
+				}else{
+					$sisabulan=$connect->query("select sum(bayar) as jspp from pembayaran left join penempatan on penempatan.peserta_didik_id=pembayaran.peserta_didik_id where penempatan.rombel='$idromb' and penempatan.tapel='$tapel' and pembayaran.tapel='$tapel' and pembayaran.jenis='$idtung'")->fetch_assoc();
+				}
 ?>
 		<tr>
 			<td><?=$n['nama_tunggakan'];?></td>
 			<td><?=rupiah($totaltunggakan);?></td>
 			<td><?=rupiah($jumlahbayar['dibayar']);?></td>
-			<td><?=rupiah($totaltunggakan-$jumlahbayar['dibayar']);?></td>
+			<td><?=rupiah($sisabulan['jspp']);?></td>
 		</tr>
 <?php 
 			}
