@@ -4,6 +4,11 @@ Perubahan Dari APINS 7
 1. Perubahan Tema
 2. Penambahan Menu untuk Pembayaran SPP bagi Tata Usaha
 
+Edit pada folder function
+1. db.php  --> database
+2. db_connect.php --> database
+3. functions.php --> baseurl
+
 Demo Aplikasi : http://apins.skom.id
 
 Username/password : admin
