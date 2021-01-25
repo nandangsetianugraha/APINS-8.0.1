@@ -4,5 +4,6 @@ Perubahan Dari APINS 7
 1. Perubahan Tema
 2. Penambahan Menu untuk Pembayaran SPP bagi Tata Usaha
 
-Demo Aplikasi : apins8.skom.id
+Demo Aplikasi : http://apins.skom.id
+
 Username/password : admin
