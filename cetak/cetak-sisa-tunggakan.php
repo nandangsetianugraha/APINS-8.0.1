@@ -149,13 +149,16 @@ $bln = array("Juli", "Agustus", "September", "Oktober", "November", "Desember", 
 						if($idtung==1){
 							$jumlahtunggakan=$connect->query("select sum(tarif) as jumlahspp from penempatan left join tarif_spp on penempatan.peserta_didik_id=tarif_spp.peserta_didik_id where penempatan.rombel='$idromb' and penempatan.tapel='$tapel'")->fetch_assoc();
 							$totaltunggakan=$jumlahtunggakan['jumlahspp']*$bulan;
+							$sql5="select sum(bayar) as dibayar from pembayaran left join penempatan on penempatan.peserta_didik_id=pembayaran.peserta_didik_id where penempatan.rombel='$idromb' and penempatan.tapel='$tapel' and pembayaran.tapel='$tapel' and pembayaran.jenis='$idtung' and pembayaran.bulan <= '$bulan'";
+							$query5= $connect->query($sql5);
+							$jumlahbayar=$query5->fetch_assoc();
 						}else{
 							$jumlahtunggakan=$connect->query("select sum(tarif) as jumlahspp from penempatan left join tunggakan_lain on penempatan.peserta_didik_id=tunggakan_lain.peserta_didik_id where penempatan.rombel='$idromb' and penempatan.tapel='$tapel' and tunggakan_lain.tapel='$tapel' and tunggakan_lain.jenis='$idtung'")->fetch_assoc();
 							$totaltunggakan=$jumlahtunggakan['jumlahspp'];
+							$sql5="select sum(bayar) as dibayar from pembayaran left join penempatan on penempatan.peserta_didik_id=pembayaran.peserta_didik_id where penempatan.rombel='$idromb' and penempatan.tapel='$tapel' and pembayaran.tapel='$tapel' and pembayaran.jenis='$idtung'";
+							$query5= $connect->query($sql5);
+							$jumlahbayar=$query5->fetch_assoc();
 						};
-						$sql5="select sum(bayar) as dibayar from penempatan left join pembayaran on penempatan.peserta_didik_id=pembayaran.peserta_didik_id where penempatan.rombel='$idromb' and penempatan.tapel='$tapel' and pembayaran.tapel='$tapel' and pembayaran.jenis='$idtung'";
-						$query5= $connect->query($sql5);
-						$jumlahbayar=$query5->fetch_assoc();
 						$jtot=$jtot+$totaltunggakan;
 						$jbayar=$jbayar+$jumlahbayar['dibayar'];
 						$jsisa=$jsisa+($jtot-$jbayar);

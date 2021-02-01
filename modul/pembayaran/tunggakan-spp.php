@@ -28,8 +28,14 @@ while($s=$query->fetch_assoc()) {
 		$status[$ids]='<button class="btn btn-sm btn-icon icon-left btn-success" data-idspp="'.$tglspp['id_bayar'].'" id="getKartu"><span class="badge badge-success">'.$namabulan['bulan'].'<br/>'.$tglspp['tanggal'].'</span><i class="fas fa-print"></i></button>';
 	}else{
 		if($cekspp>0){
-			$status[$ids] = '
+			$ceklagi=$connect->query("select * from pembayaran where peserta_didik_id='$siswa' and tapel='$tapel' and jenis='6'")->fetch_assoc();
+			$biayapsb=$ceklagi['bayar'];
+			if($biayapsb>300000 and $ids==1){
+				$status[$ids] ='<span class="badge badge-info">NULL</span>';
+			}else{
+				$status[$ids] = '
 			<button class="btn btn-danger" data-tapel="'.$tapel.'" data-pdid="'.$siswa.'" data-jenis="1" data-bulan="'.$ids.'" data-bayar="'.$tarifnya.'" id="getBayar">'.$namabulan['bulan'].'<br/>'.rupiah($tarifnya).'</button>';
+			};
 		}else{
 			$status[$ids] = '<span class="badge badge-info">NULL</span>';
 		};

@@ -29,75 +29,45 @@ class LoginForm extends DbConn
 
         }
 
-        $stmt = $db->conn->prepare("SELECT * FROM siswa WHERE nisn = :myusername");
+        $stmt = $db->conn->prepare("SELECT * FROM ".$tbl_members." WHERE nis = :myusername");
         $stmt->bindParam(':myusername', $myusername);
         $stmt->execute();
 
         // Gets query result
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-		$hasil = $stmt->fetch(PDO::rowCount());
-        if ($hasil>0) {
+
+        if ($curr_attempts >= $max_attempts && $timeDiff < $login_timeout) {
+
+            //Too many failed attempts
+			$success = '
+			<div class="empty-state" data-height="100"><div class="empty-state-icon bg-danger"><i class="fas fa-times"></i></div><h2>Anda diblokir</h2><p class="lead">Kesempatan login sudah melebihi 5x...tunggu sekitar '.$timeout_minutes.' menit sebelum melakukan login ulang</p><a href="./" class="btn btn-warning mt-4">Coba Lagi</a></div>
+			';
+        
+        } else {
 
              //If max attempts not exceeded, continue
             // Checks password entered against db password hash
-			$ftgl=$result['tanggal'];
-			$tgl=explode("-",$ftgl);
-			$passw=$tgl[0].$tgl[1].$tgl[2];
+			$tgllahir=$result['tanggal'];
+			$passw=substr($tgllahir,0,4).substr($tgllahir,5,2).substr($tgllahir,8,2);
             if ($mypassword==$passw) {
 
                 //Success! Register $myusername, $mypassword and return "true"
                 $success = 'true';
-                session_start();
-				$_SESSION['userpd'] = $myusername;
-                $_SESSION['password'] = $mypassword;
-				$_SESSION['userid'] = $result['peserta_didik_id'];
+                    session_start();
+
+                    $_SESSION['username'] = $myusername;
+                    $_SESSION['password'] = $mypassword;
+					$_SESSION['peserta_didik_id'] = $result['peserta_didik_id'];
+					$_SESSION['namasiswa'] = $result['nama'];
+			
 			} else {
 
                 //Wrong username or password
 				$success = '
-				<div class="empty-state" data-height="100"><div class="empty-state-icon bg-danger"><i class="fas fa-check"></i></div><h2>Login Gagal</h2><p class="lead">Username atau Password tidak ditemukan!</p><a href="./" class="btn btn-warning mt-4">Coba Lagi</a></div>
+				<div class="empty-state" data-height="100"><div class="empty-state-icon bg-danger"><i class="fas fa-times"></i></div><h2>Login Gagal</h2><p class="lead">Username atau Password tidak ditemukan!</p><a href="./" class="btn btn-warning mt-4">Coba Lagi</a></div>
 				';
 
             }
-        
-        } else {
-
-            $stmt1 = $db->conn->prepare("SELECT * FROM siswa WHERE nis = :myusername");
-			$stmt1->bindParam(':myusername', $myusername);
-			$stmt1->execute();
-
-			// Gets query result
-			$result1 = $stmt1->fetch(PDO::FETCH_ASSOC);
-			$hasil1 = $stmt1->fetch(PDO::rowCount());
-			if ($hasil1>0) {
-
-				 //If max attempts not exceeded, continue
-				// Checks password entered against db password hash
-				$ftgl=$result['tanggal'];
-				$tgl=explode("-",$ftgl);
-				$passw=$tgl[0].$tgl[1].$tgl[2];
-				if ($mypassword==$passw) {
-
-					//Success! Register $myusername, $mypassword and return "true"
-					$success = 'true';
-					session_start();
-					$_SESSION['userpd'] = $myusername;
-					$_SESSION['password'] = $mypassword;
-					$_SESSION['userid'] = $result['peserta_didik_id'];
-				} else {
-
-					//Wrong username or password
-					$success = '
-					<div class="empty-state" data-height="100"><div class="empty-state-icon bg-danger"><i class="fas fa-check"></i></div><h2>Login Gagal</h2><p class="lead">Username atau Password tidak ditemukan!</p><a href="./" class="btn btn-warning mt-4">Coba Lagi</a></div>
-					';
-
-				}
-			
-			} else {
-				$success = '
-					<div class="empty-state" data-height="100"><div class="empty-state-icon bg-danger"><i class="fas fa-check"></i></div><h2>Login Gagal</h2><p class="lead">Username atau Password tidak ditemukan!</p><a href="./" class="btn btn-warning mt-4">Coba Lagi</a></div>
-					';
-			};
         }
         return $success;
     }

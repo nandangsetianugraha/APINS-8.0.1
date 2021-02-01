@@ -31,7 +31,7 @@ while($z=$query21->fetch_assoc()) {
 	</thead>
 	<tbody>	
 <?php 
-	$sql2="select * from penempatan where rombel='$kelas' and tapel='$tapel'";
+	$sql2="select * from penempatan where rombel='$kelas' and tapel='$tapel' order by nama asc";
 	$query2 = $connect->query($sql2);
 	while($n=$query2->fetch_assoc()) {
 		$ids = $n['peserta_didik_id'];
