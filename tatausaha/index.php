@@ -33,7 +33,9 @@ $blnkemarin=(int) $bulannow-1;
 $blnsppnow=(int) $bulannow-1;
 if($blnsppnow==0){
 	$blnsppkemarin=11;
-}
+}else{
+	$blnsppkemarin=$blnsppnow-1;
+};
 if($blnkemarin==0){
 	$blnkemarin=12;
 };

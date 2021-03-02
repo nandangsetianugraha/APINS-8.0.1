@@ -19,10 +19,10 @@ include "template/kepala.php";
       <div class="main-content">
         <section class="section">
           <div class="section-body">
-            <div class="custom-checkbox custom-control">
-				  <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input" id="checkbox-1">
-				  <label for="checkbox-1" class="custom-control-label">&nbsp;</label>
+            <div class="row">
+				<div class="col-12 col-sm-6 col-md-6 col-lg-12">
 				</div>
+			</div>
           </div>
         </section>
 		<?php include "template/setting.php"; ?>

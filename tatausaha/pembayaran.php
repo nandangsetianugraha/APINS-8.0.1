@@ -74,7 +74,8 @@ date_default_timezone_set('Asia/Jakarta');
                   <div class="card-header">
                     <h4>Tunggakan SPP</h4>
                     <div class="card-header-action">
-                      <a href="#tambahSPP" class="btn btn-primary btn-icon" data-toggle="modal" id="addSPPModal"><i class="fas fa-calendar-plus"></i> SPP</a>
+                      <a href="#cetakkartu" class="btn btn-primary btn-icon" data-toggle="modal" id="cetak-kartu"><i class="fas fa-print"></i> Cetak</a>
+					  <a href="#tambahSPP" class="btn btn-primary btn-icon" data-toggle="modal" id="addSPPModal"><i class="fas fa-calendar-plus"></i> SPP</a>
                     </div>
                   </div>
                   <div class="collapse show" id="mycard-collapse">
@@ -244,13 +245,27 @@ date_default_timezone_set('Asia/Jakarta');
             <!-- /.modal-content -->
           </div>
         </div>
-		 <div class="modal fade" id="tambahSPP">
+		<div class="modal fade" id="tambahSPP">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
                 <h4 class="modal-title">Tambah SPP</h4>
               </div>
                         <form class="form-horizontal" action="../modul/pembayaran/tambahSPP_temp.php" autocomplete="off" method="POST" id="tambahSPPForm">
+							<div class="fetched-data1"></div>
+						</form>
+						
+			</div>
+            <!-- /.modal-content -->
+          </div>
+        </div>
+		<div class="modal fade" id="cetakkartu">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title"><i class="fas fa-print"></i> Cetak Kartu SPP</h4>
+              </div>
+                        <form class="form-horizontal" action="../modul/pembayaran/cetakkartuspp.php" autocomplete="off" method="POST" id="cetakSPPForm">
 							<div class="fetched-data1"></div>
 						</form>
 						
@@ -609,6 +624,58 @@ date_default_timezone_set('Asia/Jakarta');
 
 						return false;
 					});
+		
+		$('#cetakkartu').on('show.bs.modal', function (e) {
+            var siswa = $('#siswa').val();			
+			var tapel = $('#tapel').val();
+			if(siswa==0){
+				$(".fetched-data1").html('<div class="modal-body"><div class="alert alert-danger alert-has-icon"><div class="alert-icon"><i class="far fa-lightbulb"></i></div><div class="alert-body"><div class="alert-title">Error</div>Pilih Siswanya dulu!</div></div></div><div class="modal-footer"><button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Tutup</button></div>');
+			}else{
+			//menggunakan fungsi ajax untuk pengambilan data
+				$.ajax({
+					type : 'post',
+					url : '../modul/pembayaran/cetak-spp.php',
+					data :  'ids='+ siswa+'&tapel='+tapel,
+					beforeSend: function()
+							{	
+								$(".fetched-data1").html('<i class="fa fa-spinner fa-pulse fa-fw"></i> Loading ...');
+							},
+					success : function(data){
+					$('.fetched-data1').html(data);//menampilkan data ke dalam modal
+					}
+				});
+			}
+         });
+		$("#cetakSPPForm").unbind('submit').bind('submit', function() {
+						// remove error messages
+						$(".text-danger").remove();
+
+						var form = $(this);
+
+							$.ajax({
+								url: form.attr('action'),
+								type: form.attr('method'),
+								data: form.serialize(),
+								dataType: 'json',
+								success:function(response) {
+									if(response.success == true) {
+										//swal(response.messages, {buttons: false,timer: 2000,});
+										// reload the datatables
+										//tabelspp.ajax.reload(null, false);
+										// this function is built in function of datatables;
+
+										// remove the error 
+										$("#cetakkartu").modal('hide');
+										PopupCenter('../cetak/cetak-kartu-spp.php?ids='+response.ids+'&tapel='+response.tapel+'&jenis='+response.jenis+'&bulan='+response.bln, 'myPop1',800,800);
+									} else {
+										swal(response.messages, {buttons: false,timer: 2000,});
+									}
+								} // /success
+							}); // /ajax
+
+						return false;
+					});
+		
 		$('#tambahSPP').on('show.bs.modal', function (e) {
             var siswa = $('#siswa').val();			
 			var tapel = $('#tapel').val();
