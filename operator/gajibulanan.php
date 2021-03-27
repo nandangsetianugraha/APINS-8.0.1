@@ -88,6 +88,7 @@ $bulan = array("Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "
 									<th class="text-center">Absen Ekskul</th>
 									<th class="text-center">Terlambat</th>
 									<th class="text-center">Pulang Cepat</th>
+									<th></th>
 								</tr>
                             </thead>
                             <tbody>
@@ -99,6 +100,21 @@ $bulan = array("Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "
 				  </div>
           </div>
         </section>
+		<div class="modal fade" id="myModal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Mutasi Guru</h4>
+              </div>
+                        <form class="form-horizontal" action="../modul/ptk/mutasiGuru.php" autocomplete="off" method="POST" id="mutasiGuruForm">
+							<div class="fetched-data"></div>
+						</form>
+						
+			</div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
 		<?php include "../template/setting.php"; ?>
       </div>
       <?php include "../template/footer.php"; ?>
@@ -182,6 +198,22 @@ $(document).ready(function(){
 				// set updated value as old value
 				$(editableObj).attr('data-old_value',editableObj.innerHTML);
 				$(editableObj).css("background","#FDFDFD");	
+				
+			}          
+	   });
+	}
+	function buatSlip(idpeg,bln,thn,hari,absen,ekskul,telat,cepat) {
+		// no change change made then return false
+		// send ajax to update value
+		$.ajax({
+			url: "../modul/penggajian/buatSlip.php",
+			cache: false,
+			data:'idpeg='+idpeg+'&bln='+bln+'&thn='+thn+'&hari='+hari+'&absen='+absen+'&ekskul='+ekskul+'&telat='+telat+'&cepat='+cepat,
+			success: function(response)  {
+				console.log(response);
+				// set updated value as old value
+				//$(editableObj).attr('data-old_value',editableObj.innerHTML);
+				//$(editableObj).css("background","#FDFDFD");	
 				
 			}          
 	   });

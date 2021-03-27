@@ -295,6 +295,20 @@ include "../template/head.php";
 				}
 			});
 		});
+		$('#mp').change(function(){
+			//Mengambil value dari option select mp kemudian parameternya dikirim menggunakan ajax
+			var mp = $('#mp').val();
+			var kelas=$('#kelas').val();
+			
+			KKMTable = $("#KKMTable").DataTable({
+				"destroy":true,
+				"searching": false,
+				"paging":   false,
+				"ajax": "../modul/administrasi/kkmku.php?kelas="+kelas+"&tapel=<?=$tapel;?>&mapel="+mp,
+				"order": []
+			});
+					
+		});
 		<?php }; ?>
 		$('#tambahKD').on('show.bs.modal', function (e) {
             var rowid = $(e.relatedTarget).data('id');

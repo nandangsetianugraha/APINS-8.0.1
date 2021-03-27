@@ -1,5 +1,6 @@
 <?php
 date_default_timezone_set('Asia/Jakarta');
+//include '../../function/db_connect.php';
 class LoginForm extends DbConn
 {
     public function checkLogin($myusername, $mypassword, $mytapel, $mysmt)
@@ -21,7 +22,8 @@ class LoginForm extends DbConn
 
             $db = new DbConn;
             $tbl_members = $db->tbl_members;
-            $err = '';
+			$tbl_logs = $db->tbl_logs;
+			$err = '';
 
         } catch (PDOException $e) {
 
@@ -58,6 +60,14 @@ class LoginForm extends DbConn
 					$_SESSION['tapel'] = $mytapel;
 					$_SESSION['smt'] = $mysmt;
 					$_SESSION['userid'] = $result['ptk_id'];
+					$idptk=$result['ptk_id'];
+					$aktivitas = 'Login ke Sistem';
+					$stmt2 = $db->conn->prepare("INSERT INTO ".$tbl_logs." (ptk_id, logDate, activity) values(:idptk, :logDate, :activitas)");
+					$stmt2->bindParam(':idptk', $idptk);
+					$stmt2->bindParam(':logDate', $datetimeNow);
+					$stmt2->bindParam(':activitas', $aktivitas);
+					$stmt2->execute();
+					//$query2 = $connect->query("INSERT into log(id,ptk_id,logDate,activity) VALUES('','$idptk','$newTime','Login ke Sistem')");
 					switch ($result['level']) {
 						case 94: //guru Bahasa Inggris
 							$_SESSION['lokasi'] = 'guru';
@@ -97,7 +107,7 @@ class LoginForm extends DbConn
                           <span>&times;</span>
                         </button>
                         <div class="alert-title">Error</div>
-                        Your account has been created, but you cannot log in until it has been verified
+                        Akun Anda sudah dinonaktifkan, untuk mengaktifkan kembali silahkan hubungi operator.
                       </div>
                     </div>
 				';

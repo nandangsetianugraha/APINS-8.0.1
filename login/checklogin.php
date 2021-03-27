@@ -6,6 +6,7 @@ ob_start();
 include 'config.php';
 require 'includes/functions.php';
 
+
 // Define $myusername and $mypassword
 $username = $_POST['username'];
 $password = $_POST['password'];

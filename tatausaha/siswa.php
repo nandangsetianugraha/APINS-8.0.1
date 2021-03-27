@@ -100,7 +100,7 @@ $idsiswa=isset($_GET['idsiswa']) ? $_GET['idsiswa'] : '0';
 					}else{
 						$biom = mysqli_fetch_array(mysqli_query($koneksi, "select * from siswa where peserta_didik_id='$idsiswa'"));
 						$rombel = mysqli_fetch_array(mysqli_query($koneksi, "select * from penempatan where peserta_didik_id='$idsiswa' and tapel='$tapel'"));
-						if(file_exists( $_SERVER{'DOCUMENT_ROOT'} . "/apinnew/images/siswa/".$biom['avatar'])){
+						if(file_exists( "https://apins.sdi-aljannah.web.id/images/siswa/".$biom['avatar'])){
 							$avatarm=$biom['avatar'];
 						}else{
 							$avatarm="user-default.png";
@@ -110,7 +110,7 @@ $idsiswa=isset($_GET['idsiswa']) ? $_GET['idsiswa'] : '0';
 					<div class="card profile-widget">
 					  <div class="profile-widget-header">
 						<div id="uploaded_image">
-							<img src="<?= base_url(); ?>images/siswa/<?=$avatarm;?>" alt="..." class="rounded-circle profile-widget-picture">
+							<img src="https://apins.sdi-aljannah.web.id/images/siswa/<?=$avatarm;?>" alt="..." class="rounded-circle profile-widget-picture">
 						</div>
 						<div class="profile-widget-items">
 						  <div class="profile-widget-item">
@@ -122,9 +122,7 @@ $idsiswa=isset($_GET['idsiswa']) ? $_GET['idsiswa'] : '0';
 						</div>
 					  </div>
 					  <div class="profile-widget-description pb-0">
-					    <div class="profile-widget-name"><?=$biom['nama'];?> 
-						  
-						</div>
+					    <div class="profile-widget-name"><?=$biom['nama'];?></div>
 						<div class="py-4">
 						  <p class="clearfix">
 							<span class="float-left">
@@ -385,7 +383,7 @@ $(document).ready(function(){
 	var kelas = $('#kelas').val();
 	$("#manageMemberTable").dataTable({
 		"destroy":true,
-	  "searching": false,
+	  "searching": true,
 	  "paging":true,
 	  "ajax": "../modul/siswa/siswa.php?kelas="+kelas+"&smt=<?=$smt;?>&tapel=<?=$tapel;?>",
 	  "columnDefs": [
@@ -397,7 +395,7 @@ $(document).ready(function(){
 			var kelas = $('#kelas').val();
 			$("#manageMemberTable").dataTable({
 				"destroy":true,
-			  "searching": false,
+			  "searching": true,
 			  "paging":true,
 			  "ajax": "../modul/siswa/siswa.php?kelas="+kelas+"&smt=<?=$smt;?>&tapel=<?=$tapel;?>",
 			  "columnDefs": [

@@ -74,7 +74,7 @@ $peta=3;
 				<div class="modal-header">
 					<h4 class="modal-title">Tambah Rombel</h4>
 				</div>
-                <form class="form-horizontal" action="modul/setting/tambahKelas.php" autocomplete="off" method="POST" id="createKelasForm">
+                <form class="form-horizontal" action="../modul/setting/tambahKelas.php" autocomplete="off" method="POST" id="createKelasForm">
 					<div class="fetched-data"></div>
 				</form>
 			</div>
@@ -90,7 +90,7 @@ $peta=3;
 				<div class="modal-header">
 					<h4 class="modal-title">Edit Rombel</h4>
 				</div>
-                <form class="form-horizontal" action="modul/setting/updateKelas.php" autocomplete="off" method="POST" id="updateKelasForm">
+                <form class="form-horizontal" action="../modul/setting/updateKelas.php" autocomplete="off" method="POST" id="updateKelasForm">
 					<div class="fetched-data"></div>
 				</form>
 			</div>
@@ -132,6 +132,48 @@ $peta=3;
                 }
             });
          });
+		
+		$("#createKelasForm").unbind('submit').bind('submit', function() {
+
+				$(".text-danger").remove();
+
+				var form = $(this);
+
+				
+
+					//submi the form to server
+					$.ajax({
+						url : form.attr('action'),
+						type : form.attr('method'),
+						data : form.serialize(),
+						dataType : 'json',
+						success:function(response) {
+
+							// remove the error 
+							$(".form-group").removeClass('has-error').removeClass('has-success');
+
+							if(response.success == true) {
+								swal(response.messages, {buttons: false,timer: 2000,});
+
+								// reset the form
+								$("#tambahKelas").modal('hide');
+
+								// reload the datatables
+								KelasTable.ajax.reload(null, false);
+								//$("#createKDForm")[0].reset();
+								// this function is built in function of datatables;
+
+							} else {
+								swal(response.messages, {buttons: false,timer: 2000,});
+							}  // /else
+						} // success  
+					}); // ajax subit 				
+				
+
+
+				return false;
+			}); // /submit form for create member
+		
 		$('#editKelas').on('show.bs.modal', function (e) {
             var rowid = $(e.relatedTarget).data('id');
 			var mp = $('#mp').val();
@@ -150,6 +192,46 @@ $peta=3;
                 }
             });
          });
+		$("#updateKelasForm").unbind('submit').bind('submit', function() {
+
+				$(".text-danger").remove();
+
+				var form = $(this);
+
+				
+
+					//submi the form to server
+					$.ajax({
+						url : form.attr('action'),
+						type : form.attr('method'),
+						data : form.serialize(),
+						dataType : 'json',
+						success:function(response) {
+
+							// remove the error 
+							$(".form-group").removeClass('has-error').removeClass('has-success');
+
+							if(response.success == true) {
+								swal(response.messages, {buttons: false,timer: 2000,});
+
+								// reset the form
+								$("#editKelas").modal('hide');
+
+								// reload the datatables
+								KelasTable.ajax.reload(null, false);
+								//$("#createKDForm")[0].reset();
+								// this function is built in function of datatables;
+
+							} else {
+								swal(response.messages, {buttons: false,timer: 2000,});
+							}  // /else
+						} // success  
+					}); // ajax subit 				
+				
+
+
+				return false;
+			}); // /submit form for create member
 	});
 </script>
 </body>

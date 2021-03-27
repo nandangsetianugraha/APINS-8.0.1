@@ -15,40 +15,40 @@ $pdid=$siswa['peserta_didik_id'];
 $bln=(int) date("m");
 $blns = array("Januari", "Februari", "Maret", "April", "Mei", "Juni","Juli", "Agustus", "September", "Oktober", "November", "Desember");
 switch ($bln) {
-	case 1: //guru Bahasa Inggris
+	case 1: 
 		$blnspp=7;
 		break;
-	case 2: //guru Bahasa Inggris
+	case 2: 
 		$blnspp=8;
 		break;
-	case 3: //guru Bahasa Inggris
+	case 3: 
 		$blnspp=9;
 		break;
-	case 4: //guru Bahasa Inggris
+	case 4: 
 		$blnspp=10;
 		break;
-	case 5: //guru Bahasa Inggris
+	case 5: 
 		$blnspp=11;
 		break;
-	case 6: //guru Bahasa Inggris
+	case 6: 
 		$blnspp=12;
 		break;
-	case 7: //guru Bahasa Inggris
+	case 7: 
 		$blnspp=1;
 		break;
-	case 8: //guru Bahasa Inggris
+	case 8: 
 		$blnspp=2;
 		break;
-	case 9: //guru Bahasa Inggris
+	case 9: 
 		$blnspp=3;
 		break;
-	case 10: //guru Bahasa Inggris
+	case 10: 
 		$blnspp=4;
 		break;
-	case 11: //guru Bahasa Inggris
+	case 11: 
 		$blnspp=5;
 		break;
-	case 12: //guru Bahasa Inggris
+	case 12: 
 		$blnspp=6;
 		break;
 	default:

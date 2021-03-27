@@ -215,6 +215,21 @@ $jjromb=mysqli_num_rows($jromb);
 			<div class="col-12 col-md-12 col-lg-8">
               <div class="card">
                 <div class="card-header">
+                  <h4><i class="fas fa-bullhorn"></i> Log Activity</h4>
+                  <div class="card-header-form">
+                   
+                  </div>
+                </div>
+                <div class="card-body">
+					<div id="screen"></div>
+				</div>
+              </div>
+            </div>
+		  </div>
+		  <div class="row mt-sm-4">
+			<div class="col-12 col-md-12 col-lg-12">
+              <div class="card">
+                <div class="card-header">
                   <h4><i class="fas fa-bullhorn"></i> Pengumuman</h4>
                   <div class="card-header-form">
                     <a href="#" class="btn btn-info btn-border btn-sm">
@@ -291,6 +306,13 @@ $jjromb=mysqli_num_rows($jromb);
     </div>
   </div>
   <?php include "../template/script.php";?>
+  <script>
+	$(document).ready(function(){
+		setInterval(function(){
+			$("#screen").load('banners.php')
+		}, 2000);
+	});
+  </script>	
   <script>
   function hapusBerita(id = null) {
 		if(id) {

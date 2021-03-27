@@ -1,0 +1,11 @@
+<?php
+include("../../function/db.php");
+$smt=$_POST['smt'];
+$tapel=$_POST['tapel'];
+$idr=$_POST['rowid'];
+$cek="SELECT * FROM siswa WHERE peserta_didik_id='$idr'";
+$hasil=mysqli_query($koneksi,$cek);
+$bio=mysqli_fetch_array($hasil);
+$ids=$bio['peserta_didik_id'];if($smt==1){	$blnawal='07';	$blnakhir='12';	$tahun=substr($tapel,0,4);}else{	$blnawal='01';	$blnakhir='06';	$tahun=substr($tapel,5,4);};$absensi=mysqli_fetch_array(mysqli_query($koneksi,"SELECT SUM(IF(absensi='S',1,0)) AS sakit,SUM(IF(absensi='I',1,0)) AS ijin,SUM(IF(absensi='A',1,0)) AS alfa FROM absensi WHERE peserta_didik_id='$idr' and month(tanggal)>='$blnawal' and month(tanggal)<='$blnakhir' and year(tanggal)='$tahun'"));if($absensi['sakit']==0 or empty($absensi['sakit'])){	$sakit='-';}else{	$sakit=$absensi['sakit'];};if($absensi['ijin']==0 or empty($absensi['ijin'])){	$ijin='-';}else{	$ijin=$absensi['ijin'];};if($absensi['alfa']==0 or empty($absensi['alfa'])){	$alfa='-';}else{	$alfa=$absensi['alfa'];};
+?>
+						<div class="modal-body">							<div class="form-group form-group-default">								<label>Nama</label>								<input type="text" name="nama" class="form-control" value="<?=$bio['nama'];?>">								<input type="hidden" name="idpd" class="form-control"  value="<?=$bio['peserta_didik_id'];?>">								<input type="hidden" name="smt" class="form-control"  value="<?=$smt;?>">								<input type="hidden" name="tapel" class="form-control"  value="<?=$tapel;?>">							</div>							<div class="form-group form-group-default">								<label>Sakit</label>								<input type="text" name="sakit" class="form-control" value="<?=$sakit;?>">							</div>							<div class="form-group form-group-default">								<label>Ijin</label>								<input type="text" name="ijin" class="form-control" value="<?=$ijin;?>">							</div>							<div class="form-group form-group-default">								<label>Tanpa Keterangan</label>								<input type="text" name="alfa" class="form-control" value="<?=$alfa;?>">							</div>                        </div>                        <div class="modal-footer">                            <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Tutup</button>							<button type="submit" class="btn btn-danger waves-effect waves-light">Simpan</button>						</div>												

@@ -270,11 +270,16 @@ $peta=3;
 			url: "../modul/semester/saveNPTS.php",
 			cache: false,
 			data:'column='+column+'&value='+editableObj.innerHTML+'&id='+id+'&kelas='+kelas+'&smt='+smt+'&tapel='+tapel+'&mp='+mpid+'&kd='+kd,
+			dataType : 'json',
 			success: function(response)  {
-				console.log(response);
-				// set updated value as old value
-				$(editableObj).attr('data-old_value',editableObj.innerHTML);
-				$(editableObj).css("background","#FDFDFD");	
+				if(response.success == true) {
+					// set updated value as old value
+					$(editableObj).attr('data-old_value',editableObj.innerHTML);
+					$(editableObj).css("background","#FDFDFD");
+				}else{
+					swal(response.messages, {buttons: false,timer: 500,});
+					location.reload();
+				}					
 			}          
 	   });
 	}

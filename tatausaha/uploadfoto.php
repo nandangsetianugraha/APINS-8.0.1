@@ -21,13 +21,13 @@ if(isset($_POST["image"]))
 
 	$imageName = 'avatar_'.rand(). '.png';
 
-	file_put_contents('../images/ptk/'.$imageName, $data);
+	file_put_contents('https://apins.sdi-aljannah.web.id/images/ptk/'.$imageName, $data);
 	$sql_query = "SELECT * FROM ptk WHERE ptk_id = '".mysqli_escape_string($koneksi, $idp)."'";		
 		$resultset = mysqli_query($koneksi, $sql_query) or die("database error:". mysqli_error($koneksi));		
 		if(mysqli_num_rows($resultset)) {     
 			$ava=mysqli_fetch_array($resultset);
 			$flama=$ava['gambar'];
-			$hapusFile = "../images/ptk/".$flama;
+			$hapusFile = "https://apins.sdi-aljannah.web.id/images/ptk/".$flama;
 			if(file_exists($hapusFile)){
 				unlink($hapusFile);
 			};
@@ -35,7 +35,7 @@ if(isset($_POST["image"]))
 			mysqli_query($koneksi, $sql_update) or die("database error:". mysqli_error($koneksi));
 		};
 
-	echo '<img src="../images/ptk/'.$imageName.'" alt="..." class="rounded-circle profile-widget-picture">';
+	echo '<img src="https://apins.sdi-aljannah.web.id/images/ptk/'.$imageName.'" alt="..." class="rounded-circle profile-widget-picture">';
 
 }
 

@@ -65,6 +65,7 @@ $idsiswa=isset($_GET['idsiswa']) ? $_GET['idsiswa'] : '0';
 						<input type="hidden" name="tapel" id="tapel" class="form-control" value="<?=$tapel;?>" placeholder="Username">
 						<input type="hidden" name="smt" id="smt" class="form-control" value="<?=$smt;?>" placeholder="Username">
 						<select class="form-control" id="kelas" name="kelas">
+							<option value="0">Semua Kelas</option>
 						<?php 
 						$sql_mk=mysqli_query($koneksi, "select * from rombel where tapel='$tapel' order by nama_rombel asc");
 						while($nk=mysqli_fetch_array($sql_mk)){
@@ -385,7 +386,7 @@ $(document).ready(function(){
 	var kelas = $('#kelas').val();
 	$("#manageMemberTable").dataTable({
 		"destroy":true,
-	  "searching": false,
+	  "searching": true,
 	  "paging":true,
 	  "ajax": "../modul/siswa/siswa.php?kelas="+kelas+"&smt=<?=$smt;?>&tapel=<?=$tapel;?>",
 	  "columnDefs": [
@@ -397,7 +398,7 @@ $(document).ready(function(){
 			var kelas = $('#kelas').val();
 			$("#manageMemberTable").dataTable({
 				"destroy":true,
-			  "searching": false,
+			  "searching": true,
 			  "paging":true,
 			  "ajax": "../modul/siswa/siswa.php?kelas="+kelas+"&smt=<?=$smt;?>&tapel=<?=$tapel;?>",
 			  "columnDefs": [

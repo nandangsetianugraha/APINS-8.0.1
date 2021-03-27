@@ -1092,71 +1092,82 @@ $pres->easyCell($akademik,'align:L; valign:T');
 $pres->printRow();
 $pres->endTable(5);
 
-if($smt==1){
-//Absensi
-$table11=new easyTable($pdf, '{8,100}', 'align:L');
-$table11->rowStyle('font-size:12; font-style:B;');
-$table11->easyCell('H.');
-$table11->easyCell('Ketidakhadiran');
-$table11->printRow();
-$table11->endTable(3);
-$hadir=new easyTable($pdf, '{50, 10, 20}', 'align:L');
-$hadir->rowStyle('font-size:12; min-height:7');
-$hadir->easyCell('Sakit','align:L');
-$hadir->easyCell(':','align:L');
-$hadir->easyCell('    Hari','align:L');
-$hadir->printRow();
-$hadir->rowStyle('font-size:12; min-height:7');
-$hadir->easyCell('Ijin','align:L');
-$hadir->easyCell(':','align:L');
-$hadir->easyCell('    Hari','align:L');
-$hadir->printRow();
-$hadir->rowStyle('font-size:12; min-height:7');
-$hadir->easyCell('Tanpa Keterangan','align:L');
-$hadir->easyCell(':','align:L');
-$hadir->easyCell('    Hari','align:L');
-$hadir->printRow();
-$hadir->endTable(10);
+$adaabsen=$connect->query("select * from data_absensi where peserta_didik_id='$idp' and smt='$smt' and tapel='$tapel'")->num_rows;
+if($adaabsen>0){
+	$absensi=$connect->query("select * from data_absensi where peserta_didik_id='$idp' and smt='$smt' and tapel='$tapel'")->fetch_assoc();
+	$sakit=$absensi['sakit'];
+	$ijin=$absensi['ijin'];
+	$alfa=$absensi['alfa'];
 }else{
-//Absensi
-$table11=new easyTable($pdf, '{8,100}', 'align:L');
-$table11->rowStyle('font-size:12; font-style:B;');
-$table11->easyCell('H.');
-$table11->easyCell('Ketidakhadiran');
-$table11->printRow();
-$table11->endTable(3);
-$hadir=new easyTable($pdf, '{50, 10, 20, 100}', 'split-row:true; align:L; border:1');
-$hadir->easyCell('Sakit','align:L; border:0;');
-$hadir->easyCell(':','align:L; border:0;');
-$hadir->easyCell('    Hari','align:L; border:0;');
-if($ab==6){
-    $hadir->easyCell("Keputusan:\nBerdasarkan Pencapaian seluruh Kompetensi,\npeserta didik dinyatakan:\n\nLulus/Tidak Lulus dari SD ......................................\n\n*) Coret yang tidak perlu.",'rowspan:5; align:L; valign:T');
-}
-else{
-    $hadir->easyCell("Keputusan:\nBerdasarkan Pencapaian seluruh Kompetensi,\npeserta didik dinyatakan:\n\nNaik/Tinggal*) Kelas ....... (............)\n\n*) Coret yang tidak perlu.",'rowspan:5; align:L; valign:T');
+	$sakit='_________';
+	$ijin='_________';
+	$alfa='_________';
 };
-$hadir->printRow();
-$hadir->rowStyle('font-size:12; min-height:7');
-$hadir->easyCell('Ijin','align:L; border:0;');
-$hadir->easyCell(':','align:L; border:0;');
-$hadir->easyCell('    Hari','align:L; border:0;');
-$hadir->printRow();
-$hadir->rowStyle('font-size:12; min-height:7');
-$hadir->easyCell('Tanpa Keterangan','align:L; border:0;');
-$hadir->easyCell(':','align:L; border:0;');
-$hadir->easyCell('    Hari','align:L; border:0;');
-$hadir->printRow();
-$hadir->rowStyle('font-size:12; min-height:7');
-$hadir->easyCell('','align:L; border:0;');
-$hadir->easyCell('','align:L; border:0;');
-$hadir->easyCell('','align:L; border:0;');
-$hadir->printRow();
-$hadir->rowStyle('font-size:12; min-height:7');
-$hadir->easyCell('','align:L; border:0;');
-$hadir->easyCell('','align:L; border:0;');
-$hadir->easyCell('','align:L; border:0;');
-$hadir->printRow();
-$hadir->endTable(10);	
+if($smt==1){
+	//Absensi
+	$table11=new easyTable($pdf, '{8,100}', 'align:L');
+	$table11->rowStyle('font-size:12; font-style:B;');
+	$table11->easyCell('H.');
+	$table11->easyCell('Ketidakhadiran');
+	$table11->printRow();
+	$table11->endTable(3);
+	$hadir=new easyTable($pdf, '{50, 10, 20}', 'align:L');
+	$hadir->rowStyle('font-size:12; min-height:7');
+	$hadir->easyCell('Sakit','align:L');
+	$hadir->easyCell(':','align:L');
+	$hadir->easyCell($sakit.' Hari','align:L');
+	$hadir->printRow();
+	$hadir->rowStyle('font-size:12; min-height:7');
+	$hadir->easyCell('Ijin','align:L');
+	$hadir->easyCell(':','align:L');
+	$hadir->easyCell($ijin.' Hari','align:L');
+	$hadir->printRow();
+	$hadir->rowStyle('font-size:12; min-height:7');
+	$hadir->easyCell('Tanpa Keterangan','align:L');
+	$hadir->easyCell(':','align:L');
+	$hadir->easyCell($alfa.' Hari','align:L');
+	$hadir->printRow();
+	$hadir->endTable(10);
+}else{
+	//Absensi
+	$table11=new easyTable($pdf, '{8,100}', 'align:L');
+	$table11->rowStyle('font-size:12; font-style:B;');
+	$table11->easyCell('H.');
+	$table11->easyCell('Ketidakhadiran');
+	$table11->printRow();
+	$table11->endTable(3);
+	$hadir=new easyTable($pdf, '{50, 10, 20, 100}', 'split-row:true; align:L; border:1');
+	$hadir->easyCell('Sakit','align:L; border:0;');
+	$hadir->easyCell(':','align:L; border:0;');
+	$hadir->easyCell($sakit.' Hari','align:L; border:0;');
+	if($ab==6){
+		$hadir->easyCell("Keputusan:\nBerdasarkan Pencapaian seluruh Kompetensi,\npeserta didik dinyatakan:\n\nLulus/Tidak Lulus dari SD ......................................\n\n*) Coret yang tidak perlu.",'rowspan:5; align:L; valign:T');
+	}
+	else{
+		$hadir->easyCell("Keputusan:\nBerdasarkan Pencapaian seluruh Kompetensi,\npeserta didik dinyatakan:\n\nNaik/Tinggal*) Kelas ....... (............)\n\n*) Coret yang tidak perlu.",'rowspan:5; align:L; valign:T');
+	};
+	$hadir->printRow();
+	$hadir->rowStyle('font-size:12; min-height:7');
+	$hadir->easyCell('Ijin','align:L; border:0;');
+	$hadir->easyCell(':','align:L; border:0;');
+	$hadir->easyCell($ijin.' Hari','align:L; border:0;');
+	$hadir->printRow();
+	$hadir->rowStyle('font-size:12; min-height:7');
+	$hadir->easyCell('Tanpa Keterangan','align:L; border:0;');
+	$hadir->easyCell(':','align:L; border:0;');
+	$hadir->easyCell($alfa.' Hari','align:L; border:0;');
+	$hadir->printRow();
+	$hadir->rowStyle('font-size:12; min-height:7');
+	$hadir->easyCell('','align:L; border:0;');
+	$hadir->easyCell('','align:L; border:0;');
+	$hadir->easyCell('','align:L; border:0;');
+	$hadir->printRow();
+	$hadir->rowStyle('font-size:12; min-height:7');
+	$hadir->easyCell('','align:L; border:0;');
+	$hadir->easyCell('','align:L; border:0;');
+	$hadir->easyCell('','align:L; border:0;');
+	$hadir->printRow();
+	$hadir->endTable(10);	
 };
 //TTD
 $ttd=new easyTable($pdf, '{10,60,30,80,10}');

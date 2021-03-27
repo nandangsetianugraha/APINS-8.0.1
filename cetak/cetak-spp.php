@@ -88,12 +88,51 @@ function namahari($tanggal){
     };
     
 };
-
+$pdid=$_GET['pdid'];
 $tapel=$_GET['tapel'];
-$tanggal=$_GET['tanggal'];
+$siswa=$connect->query("select * from siswa where peserta_didik_id='$pdid'")->fetch_assoc();
+$kelas=$connect->query("select * from penempatan where peserta_didik_id='$pdid' and tapel='$tapel'")->fetch_assoc();
+$nomor=$siswa['nis'].".png";
 $thn=isset($_GET['thn']) ? $_GET['thn'] : date("Y");
 $bln = array("Juli", "Agustus", "September", "Oktober", "November", "Desember", "Januari", "Februari", "Maret", "April", "Mei", "Juni");
 		$pdf=new exFPDF('P','mm',array(110,165));
+		//Halaman 1
+		$pdf->AddPage(); 
+		$pdf->SetFont('helvetica','',10);
+		$table2=new easyTable($pdf, '{110}');
+		$table2->easyCell('','img:logo.jpg,w30;align:C;valign:M');
+		$table2->printRow();
+		$table2->easyCell('SEKOLAH DASAR ISLAM AL-JANNAH','font-size:12;font-style:B;align:C;');
+		$table2->printRow();
+		$table2->easyCell('Jl. Raya Gabuswetan No. 1 Desa Gabuswetan Kec. Gabuswetan','font-size:7;align:C;');
+		$table2->printRow();
+		$table2->easyCell('Indramayu Jabar 45263 Telp/Fax. (0234) 5508501','font-size:7;align:C;');
+		$table2->printRow();
+		$table2->easyCell('Website: https://sdi-aljannah.web.id email: sdi.aljannah@gmail.com','font-size:7;align:C;');
+		$table2->printRow();
+		$table2->easyCell('','img:../modul/qrcode/temp/'.$nomor.',w30;align:C;valign:M');
+		$table2->printRow();
+		$table2->rowStyle('min-height:10');
+		$table2->easyCell($siswa['nama'],'font-size:12;font-style:B;align:C;valign:M;border:1');
+		$table2->printRow();
+		$table2->endTable();
+		
+		$table2=new easyTable($pdf, '{50,10,50}');
+		$table2->rowStyle('min-height:10');
+		$table2->easyCell('Kelas '.$kelas['rombel'],'font-size:12;font-style:B;align:C;valign:M;border:1');
+		$table2->easyCell('','font-size:12;font-style:B;align:C;valign:M');
+		$table2->easyCell($siswa['nis'],'font-size:12;font-style:B;align:C;valign:M;border:1');
+		$table2->printRow();
+		$table2->endTable(10);
+		
+		$table2=new easyTable($pdf, '{110}');
+		$table2->easyCell('KARTU INFAQ BULANAN','font-size:14;font-style:B;align:C;');
+		$table2->printRow();
+		$table2->easyCell('TAHUN PELAJARAN '.$tapel,'font-size:14;font-style:B;align:C;');
+		$table2->printRow();
+		$table2->endTable();
+		
+		//Halaman 2
 		$pdf->AddPage(); 
 		$pdf->SetFont('helvetica','',10);
 
@@ -205,7 +244,7 @@ $bln = array("Juli", "Agustus", "September", "Oktober", "November", "Desember", 
 		$table2->easyCell('','font-size:8;align:C;');
 		$table2->easyCell('Mengetahui,','font-size:8;align:L;');
 		$table2->easyCell('','font-size:8;align:C;');
-		$table2->easyCell('Gabuswetan, '.TanggalIndo($tanggal),'font-size:8;align:L;');
+		$table2->easyCell('Gabuswetan, ..........................','font-size:8;align:L;');
 		$table2->printRow();
 		$table2->easyCell('','font-size:8;align:C;');
 		$table2->easyCell('Kepala Sekolah','font-size:8;align:L;');

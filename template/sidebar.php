@@ -19,6 +19,9 @@
 			<li class="dropdown">
               <a href="tarif" class="nav-link"><i data-feather="shopping-bag"></i><span>Besar Tarif</span></a>
             </li>
+			<li class="dropdown">
+              <a href="cetak-kartu" class="nav-link"><i data-feather="printer"></i><span>Cetak Kartu</span></a>
+            </li>
 			<li class="menu-header">Keuangan</li>
 			<li class="dropdown">
               <a href="penerimaan" class="nav-link"><i data-feather="gift"></i><span>POS Penerimaan</span></a>

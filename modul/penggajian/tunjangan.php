@@ -27,22 +27,22 @@ while ($row = $query->fetch_assoc()) {
 	$namap = $connect->query("SELECT * FROM ptk WHERE ptk_id='$pegid'")->fetch_assoc();
 	$pn = $connect->query("select * from gajipokok where pegawai_id='$idp'")->fetch_assoc();
 	$tunj1 = '
-		<span class="input form-control form-control-sm" contenteditable="true" data-old_value="'.$pn['insentif'].'"  onBlur="simpankes(this,\'insentif\',\''.$idp.'\')" onClick="highlightEdit(this);">'.number_format($pn['insentif'],0,",",".").'</span>
+		<span class="input form-control form-control-sm" contenteditable="true" data-old_value="'.$pn['insentif'].'"  onBlur="simpankes(this,\'insentif\',\''.$idp.'\')" onClick="highlightEdit(this);">'.$pn['insentif'].'</span>
 		';
 	$tunj2 = '
-		<span class="input form-control form-control-sm" contenteditable="true" data-old_value="'.$pn['transport'].'"  onBlur="simpankes(this,\'transport\',\''.$idp.'\')" onClick="highlightEdit(this);">'.number_format($pn['transport'],0,",",".").'</span>
+		<span class="input form-control form-control-sm" contenteditable="true" data-old_value="'.$pn['transport'].'"  onBlur="simpankes(this,\'transport\',\''.$idp.'\')" onClick="highlightEdit(this);">'.$pn['transport'].'</span>
 		';
 	$tunj3 = '
-		<span class="input form-control form-control-sm" contenteditable="true" data-old_value="'.$pn['tunj_walikelas'].'"  onBlur="simpankes(this,\'tunj_walikelas\',\''.$idp.'\')" onClick="highlightEdit(this);">'.number_format($pn['tunj_walikelas'],0,",",".").'</span>
+		<span class="input form-control form-control-sm" contenteditable="true" data-old_value="'.$pn['tunj_walikelas'].'"  onBlur="simpankes(this,\'tunj_walikelas\',\''.$idp.'\')" onClick="highlightEdit(this);">'.$pn['tunj_walikelas'].'</span>
 		';
 	$tunj4 = '
-		<span class="input form-control form-control-sm" contenteditable="true" data-old_value="'.$pn['tunj_kepsek'].'"  onBlur="simpankes(this,\'tunj_kepsek\',\''.$idp.'\')" onClick="highlightEdit(this);">'.number_format($pn['tunj_kepsek'],0,",",".").'</span>
+		<span class="input form-control form-control-sm" contenteditable="true" data-old_value="'.$pn['tunj_kepsek'].'"  onBlur="simpankes(this,\'tunj_kepsek\',\''.$idp.'\')" onClick="highlightEdit(this);">'.$pn['tunj_kepsek'].'</span>
 		';
 	$tunj5 = '
-		<span class="input form-control form-control-sm" contenteditable="true" data-old_value="'.$pn['tunj_kehadiran'].'"  onBlur="simpankes(this,\'tunj_kehadiran\',\''.$idp.'\')" onClick="highlightEdit(this);">'.number_format($pn['tunj_kehadiran'],0,",",".").'</span>
+		<span class="input form-control form-control-sm" contenteditable="true" data-old_value="'.$pn['tunj_kehadiran'].'"  onBlur="simpankes(this,\'tunj_kehadiran\',\''.$idp.'\')" onClick="highlightEdit(this);">'.$pn['tunj_kehadiran'].'</span>
 		';
 	$tunj6 = '
-		<span class="input form-control form-control-sm" contenteditable="true" data-old_value="'.$pn['tunj_ekskul'].'"  onBlur="simpankes(this,\'tunj_ekskul\',\''.$idp.'\')" onClick="highlightEdit(this);">'.number_format($pn['tunj_ekskul'],0,",",".").'</span>
+		<span class="input form-control form-control-sm" contenteditable="true" data-old_value="'.$pn['tunj_ekskul'].'"  onBlur="simpankes(this,\'tunj_ekskul\',\''.$idp.'\')" onClick="highlightEdit(this);">'.$pn['tunj_ekskul'].'</span>
 		';
 	//$namasis=$pn['nama'];
 	$output['data'][] = array(

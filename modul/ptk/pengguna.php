@@ -38,7 +38,7 @@ while ($row = $query->fetch_assoc()) {
 		$avatarm="user-default.png";
 	};
 	$actionButton = '
-		<a href="pengguna?idsiswa='.$idp.'" class="btn btn-icon btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+		<a href="ptk?idptk='.$idp.'" class="btn btn-icon btn-sm btn-warning"><i class="fas fa-edit"></i></a>
 		';
 	$output['data'][] = array(
 		"<img alt='image' src='../images/ptk/".$avatarm."' class='rounded-circle' width='35' data-toggle='tooltip' title='".$pn['nama']."'> ".$row['username'],

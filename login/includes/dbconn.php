@@ -13,6 +13,7 @@ class DbConn
         $this->tbl_prefix = $tbl_prefix; // Prefix for all database tables
         $this->tbl_members = $tbl_members;
         $this->tbl_attempts = $tbl_attempts;
+		$this->tbl_logs = $tbl_logs;
 
         // Connect to server and select database.
         $this->conn = new PDO('mysql:host='.$host.';dbname='.$db_name.';charset=utf8', $username, $password);

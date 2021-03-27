@@ -143,7 +143,7 @@ $jjromb=mysqli_num_rows($jromb);
             </div>
           </div>
 		  <?php }} ?>
-          <div class="row mt-sm-4">
+          <div class="row">
 			<div class="col-12 col-md-12 col-lg-4">
 				<div class="card profile-widget">
                   <div class="profile-widget-header">
@@ -229,6 +229,54 @@ $jjromb=mysqli_num_rows($jromb);
                 </div>
             </div>
 			<div class="col-12 col-md-12 col-lg-8">
+              <div class="card">
+                <div class="card-header">
+                  <h4><i class="fas fa-bullhorn"></i> Log Activity</h4>
+                  <div class="card-header-form">
+                   
+                  </div>
+                </div>
+                <div class="card-body">
+					<?php 
+					$brt1=mysqli_query($koneksi, "select * from log where ptk_id='$idku' order by logDate desc limit 7");
+					$jbrt1=mysqli_num_rows($brt1);
+					if($jbrt1>0){
+					?>
+					<ul class="list-unstyled list-unstyled-border user-list" id="message-list">
+						<?php 
+						while($pg1=mysqli_fetch_array($brt1)){
+							$ptk_id=$pg1['ptk_id'];
+							$nad1=mysqli_query($koneksi, "select * from ptk where ptk_id='$ptk_id'");
+							$namaadmin1=mysqli_fetch_array($nad1);
+							if(file_exists( $_SERVER{'DOCUMENT_ROOT'} . "/images/ptk/".$namaadmin1['gambar'])){
+								$gbr=$namaadmin1['gambar'];
+							}else{
+								$gbr="user-default.png";
+							};
+						?>
+						<li class="media">
+							<img alt="image" src="../images/ptk/<?=$gbr;?>"
+							  class="mr-3 user-img-radious-style user-list-img">
+							<div class="media-body">
+							  <div class="mt-0 font-weight-bold">[<?=$pg1['logDate'];?>] <?=$namaadmin1['nama'];?></div>
+							  <div class="text-small"><?=$pg1['activity'];?></div>
+							</div>
+						</li>
+						<?php } ?>
+					</ul>
+					<?php }else{ ?>
+					<div class="alert alert-info alert-dismissible">
+						<h4><i class="icon fa fa-info-circle"></i> Informasi</h4>
+						Belum Ada Log Activity
+					</div>
+					<?php } ?>
+				  </ul>
+                </div>
+              </div>
+            </div>
+		  </div>
+		  <div class="row mt-sm-4">
+			<div class="col-12 col-md-12 col-lg-12">
 				<!-- Support tickets -->
               <div class="card">
                 <div class="card-header">
@@ -279,6 +327,10 @@ $jjromb=mysqli_num_rows($jromb);
   </div>
   <?php include "../template/script.php";?>
   <script>
+	$("#table-1").dataTable({
+	  "searching": false,
+	  "paging":true
+	});
   $("#manageMemberTable").dataTable({
 	  "searching": false,
 	  "paging":true,

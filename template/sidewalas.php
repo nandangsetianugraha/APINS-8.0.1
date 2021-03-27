@@ -59,6 +59,7 @@
                 <li><a class="nav-link" href="prestasi">Prestasi</a></li>
                 <li><a class="nav-link" href="ekskul">Ekstrakurikuler</a></li>
                 <li><a class="nav-link" href="saran">Saran dan Pesan</a></li>
+				<li><a class="nav-link" href="data-absensi">Data Absensi</a></li>
               </ul>
             </li>
             <li class="menu-header">Cetak Laporan</li>
