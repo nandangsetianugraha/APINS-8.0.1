@@ -89,6 +89,7 @@ function namahari($tanggal){
 };
 
 	$idinv=$_GET['idinv'];
+	$jprinter=$connect->query("select * from printer")->fetch_assoc();
 		$pdf=new exFPDF('P','mm',array(215,330));
 		$pdf->AddPage(); 
 		$pdf->SetFont('helvetica','',10);
@@ -243,6 +244,7 @@ $data['title'] = 'Cetak Invoice';
 						<input type="hidden" name="txtPdfFile" id="txtPdfFile" value="invoice.pdf" />
 						<label>Printers:</label>
 						<select class="form-control select2" name="lstPrinters" id="lstPrinters" onchange="showSelectedPrinterInfo();" >
+						<option selected><?=$jprinter['nama'];?></option>
 						</select>
 					</div>
 					<div class="form-group col-md-6">
@@ -255,6 +257,7 @@ $data['title'] = 'Cetak Invoice';
 					<div class="form-group col-md-6">
 						<label>Supported Papers:</label>
 						<select class="form-control select2" name="lstPrinterPapers" id="lstPrinterPapers" >
+						<option selected><?=$jprinter['kwitansi'];?></option>
 						</select>
 					</div>
 					<div class="form-group col-md-6">
@@ -306,20 +309,6 @@ var clientPrinters = null;
     //WebSocket settings
     JSPM.JSPrintManager.auto_reconnect = true;
     JSPM.JSPrintManager.start();
-    JSPM.JSPrintManager.WS.onStatusChanged = function () {
-        if (jspmWSStatus()) {
-            //get client installed printers
-            JSPM.JSPrintManager.getPrintersInfo().then(function (printersList) {
-                clientPrinters = printersList;
-                var options = '';
-                for (var i = 0; i < clientPrinters.length; i++) {
-                    options += '<option>' + clientPrinters[i].name + '</option>';
-                }
-                $('#lstPrinters').html(options);
-                _this.showSelectedPrinterInfo();
-            });
-        }
-    };
 
     //Check JSPM WebSocket status
     function jspmWSStatus() {

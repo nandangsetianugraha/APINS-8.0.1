@@ -92,6 +92,7 @@ function namahari($tanggal){
 $tapel=$_GET['tapel'];
 $jenis=$_GET['jenis'];
 $jtunggakan=$connect->query("select * from jenis_tunggakan where id_tunggakan='$jenis'")->fetch_assoc();
+$jprinter=$connect->query("select * from printer")->fetch_assoc();
 $hari=date('Y-m-d');
 //$thn=isset($_GET['thn']) ? $_GET['thn'] : date("Y");
 $bln = array("Juli", "Agustus", "September", "Oktober", "November", "Desember", "Januari", "Februari", "Maret", "April", "Mei", "Juni");
@@ -220,6 +221,7 @@ $data['title'] = 'Cetak Tunggakan '.$jtunggakan['nama_tunggakan'];
 						<input type="hidden" name="txtPdfFile" id="txtPdfFile" value="tunggakan-kategori.pdf" />
 						<label>Printers:</label>
 						<select class="form-control select2" name="lstPrinters" id="lstPrinters" onchange="showSelectedPrinterInfo();" >
+							<option selected><?=$jprinter['nama'];?></option>
 						</select>
 					</div>
 					<div class="form-group col-md-6">
@@ -232,6 +234,7 @@ $data['title'] = 'Cetak Tunggakan '.$jtunggakan['nama_tunggakan'];
 					<div class="form-group col-md-6">
 						<label>Supported Papers:</label>
 						<select class="form-control select2" name="lstPrinterPapers" id="lstPrinterPapers" >
+							<option><?=$jprinter['kwitansi'];?></option>
 						</select>
 					</div>
 					<div class="form-group col-md-6">
@@ -283,20 +286,6 @@ var clientPrinters = null;
     //WebSocket settings
     JSPM.JSPrintManager.auto_reconnect = true;
     JSPM.JSPrintManager.start();
-    JSPM.JSPrintManager.WS.onStatusChanged = function () {
-        if (jspmWSStatus()) {
-            //get client installed printers
-            JSPM.JSPrintManager.getPrintersInfo().then(function (printersList) {
-                clientPrinters = printersList;
-                var options = '';
-                for (var i = 0; i < clientPrinters.length; i++) {
-                    options += '<option>' + clientPrinters[i].name + '</option>';
-                }
-                $('#lstPrinters').html(options);
-                _this.showSelectedPrinterInfo();
-            });
-        }
-    };
 
     //Check JSPM WebSocket status
     function jspmWSStatus() {
