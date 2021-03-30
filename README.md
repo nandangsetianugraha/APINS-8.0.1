@@ -9,6 +9,4 @@ Edit pada folder function
 2. db_connect.php --> database
 3. functions.php --> baseurl
 
-Demo Aplikasi : http://apins.skom.id
-
-Username/password : admin
+Demo Aplikasi : https://sdi-aljannah.web.id
