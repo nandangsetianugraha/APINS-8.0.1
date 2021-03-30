@@ -33,6 +33,7 @@
                 <li><a class="nav-link" href="harian"><i data-feather="printer"></i><span>Pembayaran Harian</span></a></li>
 				<li><a class="nav-link" href="tunggakan"><i data-feather="printer"></i><span>Tunggakan Siswa</a></span></li>
 				<li><a class="nav-link" href="sisatunggakan"><i data-feather="printer"></i><span>Sisa Tunggakan</a></span></li>
+				<li><a class="nav-link" href="laporan-tunggakan"><i data-feather="printer"></i><span>Jumlah Tunggakan</a></span></li>
 				<li><a class="nav-link" href="tunggakan-spp"><i data-feather="printer"></i><span>Tunggakan SPP</a></span></li>
               </ul>
             </li>

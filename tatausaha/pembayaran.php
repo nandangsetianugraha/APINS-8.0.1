@@ -418,7 +418,7 @@ date_default_timezone_set('Asia/Jakarta');
 						.then((willDelete) => {
 						  if (willDelete) {
 							  swal(data.messages, {buttons: false,timer: 500,});
-							PopupCenter('../cetak/cetak-invoice.php?idinv='+data.messages, 'myPop1',800,800);
+							  PopupCenter('../cetak/cetak-invoice.php?idinv='+data.messages, 'myPop1',800,800);
 						  } else {
 							
 						  }
@@ -665,7 +665,7 @@ date_default_timezone_set('Asia/Jakarta');
 										// this function is built in function of datatables;
 
 										// remove the error 
-										$("#cetakkartu").modal('hide');
+										//$("#cetakkartu").modal('hide');
 										PopupCenter('../cetak/cetak-kartu-spp.php?ids='+response.ids+'&tapel='+response.tapel+'&jenis='+response.jenis+'&bulan='+response.bln, 'myPop1',800,800);
 									} else {
 										swal(response.messages, {buttons: false,timer: 2000,});

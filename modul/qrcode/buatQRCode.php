@@ -4,7 +4,7 @@ if($_GET) {
 	$npm=$_GET['nis'];
     $nomor = $_GET['pdid'];
 	include "phpqrcode/qrlib.php";
-	$tempdir = "temp/";
+	$tempdir = "https://sdi-aljannah.web.id/images/qrcode/";
     if (!file_exists($tempdir)){
         mkdir($tempdir);
     }
