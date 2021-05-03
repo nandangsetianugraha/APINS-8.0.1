@@ -16,7 +16,7 @@ $query = $connect->query($sql);
 $bayarnya=0;
 while($s=$query->fetch_assoc()) {
 	$ids=$s['id_bayar'];
-	$tombol='<button class="btn btn-danger" data-ids="'.$ids.'" id="gethapus"></button>';
+	$tombol='<button class="btn btn-sm btn-icon btn-danger" data-ids="'.$ids.'" id="gethapus"><i class="fas fa-trash"></i></button>';
 	$bayarnya=$bayarnya+$s['bayar'];
 	$output['data'][] = array(
 		$s['deskripsi'],rupiah($s['bayar']),$tombol

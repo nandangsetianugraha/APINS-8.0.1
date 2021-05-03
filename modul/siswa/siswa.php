@@ -27,7 +27,7 @@ if($kelas==0){
 	$query = $connect->query($sql);
 	while ($row = $query->fetch_assoc()) {
 		$idp=$row['peserta_didik_id'];
-		if(file_exists("https://apins.sdi-aljannah.web.id/images/siswa/".$row['avatar'])){
+		if(file_exists($_SERVER{'DOCUMENT_ROOT'} . "/images/siswa/".$row['avatar'])){
 			$avatarm=$row['avatar'];
 		}else{
 			$avatarm="user-default.png";

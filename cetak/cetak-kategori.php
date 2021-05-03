@@ -92,7 +92,7 @@ function namahari($tanggal){
 $tapel=$_GET['tapel'];
 $jenis=$_GET['jenis'];
 $jtunggakan=$connect->query("select * from jenis_tunggakan where id_tunggakan='$jenis'")->fetch_assoc();
-$jprinter=$connect->query("select * from printer")->fetch_assoc();
+$jprinter=$connect->query("select * from printer where status='1'")->fetch_assoc();
 $hari=date('Y-m-d');
 //$thn=isset($_GET['thn']) ? $_GET['thn'] : date("Y");
 $bln = array("Juli", "Agustus", "September", "Oktober", "November", "Desember", "Januari", "Februari", "Maret", "April", "Mei", "Juni");
@@ -121,6 +121,7 @@ $bln = array("Juli", "Agustus", "September", "Oktober", "November", "Desember", 
 		$table2->printRow();
 		$table2->endTable();
 		
+		$totaltarif=0;
 		$jumlahtotal=0;
 		$dibayar=0;
 		$jumlahsisa=0;
@@ -130,22 +131,29 @@ $bln = array("Juli", "Agustus", "September", "Oktober", "November", "Desember", 
 		$table2->easyCell('Tarif/Biaya','align:C;border:BT');
 		$table2->easyCell('Pembayaran','align:C;border:BT');
 		$table2->easyCell('Sisa','align:C;border:BT');
-		$table2->printRow();
+		$table2->printRow(true);
+		
 		$sql1="select * from penempatan where tapel='$tapel' order by rombel asc";
 		$query1 = $connect->query($sql1);
 		while($m=$query1->fetch_assoc()) {
 			$idpd=$m['peserta_didik_id'];
-			$jumlahtunggakan=$connect->query("select * from tunggakan_lain where peserta_didik_id='$idpd' and tapel='$tapel' and jenis='$jenis'")->fetch_assoc();
+			if($jenis==1){
+				$jumlahtunggakan=$connect->query("select * from tarif_spp where peserta_didik_id='$idpd'")->fetch_assoc();
+				$totaltarif=12*$jumlahtunggakan['tarif'];
+			}else{
+				$jumlahtunggakan=$connect->query("select * from tunggakan_lain where peserta_didik_id='$idpd' and tapel='$tapel' and jenis='$jenis'")->fetch_assoc();
+				$totaltarif=$jumlahtunggakan['tarif'];
+			};
 			$jumlahbayar=$connect->query("select sum(bayar) as jumlahbayar from pembayaran where peserta_didik_id='$idpd' and tapel='$tapel' and jenis='$jenis'")->fetch_assoc();
-			$sisa=$jumlahtunggakan['tarif']-$jumlahbayar['jumlahbayar'];
-			$jumlahtotal=$jumlahtotal+$jumlahtunggakan['tarif'];
+			$sisa=$totaltarif-$jumlahbayar['jumlahbayar'];
+			$jumlahtotal=$jumlahtotal+$totaltarif;
 			$dibayar=$dibayar+$jumlahbayar['jumlahbayar'];
 			$jumlahsisa=$jumlahsisa+$sisa;
 			if($sisa==0){
 			}else{
 				$table2->easyCell($m['nama'],'align:L;');
 				$table2->easyCell($m['rombel'],'align:L;');
-				$table2->easyCell(rupiah($jumlahtunggakan['tarif']),'align:R;');
+				$table2->easyCell(rupiah($totaltarif),'align:R;');
 				$table2->easyCell(rupiah($jumlahbayar['jumlahbayar']),'align:R;');
 				$table2->easyCell(rupiah($sisa),'align:R;');
 				$table2->printRow();

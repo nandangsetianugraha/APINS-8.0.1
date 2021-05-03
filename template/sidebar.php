@@ -10,7 +10,13 @@
               <a href="./" class="nav-link"><i data-feather="home"></i><span>Beranda</span></a>
             </li>
 			<li class="dropdown">
+              <a href="pengaturan-printer" class="nav-link"><i data-feather="printer"></i><span>Pengaturan Printer</span></a>
+            </li>
+			<li class="dropdown">
               <a href="pembayaran" class="nav-link"><i data-feather="shopping-cart"></i><span>Pembayaran</span></a>
+            </li>
+			<li class="dropdown">
+              <a href="tabungan" class="nav-link"><i data-feather="shopping-cart"></i><span>Tabungan</span></a>
             </li>
 			<li class="menu-header">Kesiswaan</li>
 			<li class="dropdown">

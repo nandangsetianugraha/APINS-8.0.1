@@ -5,6 +5,7 @@ require_once '../../function/db_connect.php';
 if($_GET) {	
 
 	$validator = array('success' => false, 'messages' => array());
+	include "../qrcode/phpqrcode/qrlib.php";
 	$id=$_GET['siswa'];
 	$tapel=$_GET['tapel'];
 	$tanggal=$_GET['tanggal'];
@@ -35,6 +36,17 @@ if($_GET) {
 				$kode='SDI'.$kodein.$noinv;
 			};
 			$qinv = $connect->query("INSERT INTO invoice(nomor,tanggal,peserta_didik_id,tapel,jumlah) VALUES('$kode','$tanggal','$id','$tapel','$telahbayar')");
+			//Buat QRCode Invoice
+			$tempdir = "../qrcode/temp/";
+			if (!file_exists($tempdir)){
+				mkdir($tempdir);
+			};
+			$isi_teks = $kode;
+			$namafile = $kode.".png";
+			$quality = 'H'; //ada 4 pilihan, L (Low), M(Medium), Q(Good), H(High)
+			$ukuran = 5; //batasan 1 paling kecil, 10 paling besar
+			$padding = 2;
+			QRCode::png($isi_teks,$tempdir.$namafile,$quality,$ukuran,$padding);
 			$sql = "SELECT * FROM pembayaran_temp WHERE peserta_didik_id = '$id'";
 			$query = $connect->query($sql);
 			while($r = $query->fetch_assoc()){

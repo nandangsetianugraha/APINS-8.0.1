@@ -1,6 +1,7 @@
 <?php 
 session_start();
 require_once '../function/functions.php';
+include '../function/db_connect.php';
 if (!isset($_SESSION['username'])) {
   header('Location: ../login/');
   exit();
@@ -33,6 +34,13 @@ date_default_timezone_set('Asia/Jakarta');
 						<label>Siswa</label>
 						<input type="hidden" name="tapel" id="tapel" class="form-control" value="<?=$tapel;?>" placeholder="Username">
 						<input type="hidden" name="smt" id="smt" class="form-control" value="<?=$smt;?>" placeholder="Username">
+						<?php $jprinter=$connect->query("select * from printer where status='1'")->fetch_assoc(); ?>
+						<input type="hidden" name="lstPrinters" id="lstPrinters" value="<?=$jprinter['nama'];?>" />
+						<input type="hidden" name="lstPrinterTrays" id="lstPrinterTrays" value="" />
+						<input type="hidden" name="txtPdfFileCetakKartu" id="txtPdfFileCetakKartu" value="../cetak/cetak-kartu.pdf" />
+						<input type="hidden" name="lstPrinterPapersCetakKartu" id="lstPrinterPapersCetakKartu" value="<?=$jprinter['spp'];?>" />
+						<input type="hidden" name="txtPdfFileCetakInvoice" id="txtPdfFileCetakInvoice" value="../cetak/cetak-kartu.pdf" />
+						<input type="hidden" name="lstPrinterPapersCetakInvoice" id="lstPrinterPapersCetakInvoice" value="<?=$jprinter['kwitansi'];?>" />
 						<select class="form-control select2" id="siswa">
 							<option value="0">Pilih Siswa</option>
 							<?php 
@@ -273,6 +281,18 @@ date_default_timezone_set('Asia/Jakarta');
             <!-- /.modal-content -->
           </div>
         </div>
+		<div class="modal fade" id="lihatinvoice">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title"><i class="fas fa-print"></i> Invoice</h4>
+              </div>
+                        	<div class="fetched-data1"></div>
+						
+			</div>
+            <!-- /.modal-content -->
+          </div>
+        </div>
 		<div class="modal fade" id="bayarlain">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -294,7 +314,120 @@ date_default_timezone_set('Asia/Jakarta');
     </div>
   </div>
   <?php include "../template/script.php";?>
+  <script src="<?= base_url(); ?>assets/js/zip-full.min.js"></script>
+  <script src="<?= base_url(); ?>assets/js/JSPrintManager.js"></script>
+  <script src="<?= base_url(); ?>assets/js/bluebird.min.js"></script>
   <script>
+	var clientPrinters = null;
+    var _this = this;
+
+    //WebSocket settings
+    JSPM.JSPrintManager.auto_reconnect = true;
+    JSPM.JSPrintManager.start();
+
+    //Check JSPM WebSocket status
+    function jspmWSStatus() {
+        if (JSPM.JSPrintManager.websocket_status == JSPM.WSStatus.Open)
+            return true;
+        else if (JSPM.JSPrintManager.websocket_status == JSPM.WSStatus.Closed) {
+            alert('JSPrintManager (JSPM) is not installed or not running! Download JSPM Client App from https://neodynamic.com/downloads/jspm');
+            return false;
+        }
+        else if (JSPM.JSPrintManager.websocket_status == JSPM.WSStatus.Blocked) {
+            alert('JSPM has blocked this website!');
+            return false;
+        }
+    }
+	
+	//cetak kartu spp 
+	function printSPP() {
+        if (jspmWSStatus()) {
+
+            //Create a ClientPrintJob
+            var cpj = new JSPM.ClientPrintJob();
+
+            //Set Printer info
+            var myPrinter = new JSPM.InstalledPrinter($('#lstPrinters').val());
+            myPrinter.paperName = "<?=$jprinter['spp'];?>";
+            myPrinter.trayName = $('#lstPrinterTrays').val();
+                
+            cpj.clientPrinter = myPrinter;
+
+            //Set PDF file
+            var my_file = new JSPM.PrintFilePDF("../cetak/cetak-kartu.pdf", JSPM.FileSourceType.URL, 'MyFile.pdf', 1);
+            my_file.printRotation = JSPM.PrintRotation[$('#lstPrintRotation').val()];
+            my_file.printRange = $('#txtPagesRange').val();
+            my_file.printAnnotations = $('#chkPrintAnnotations').prop('checked');
+            my_file.printAsGrayscale = $('#chkPrintAsGrayscale').prop('checked');
+            my_file.printInReverseOrder = $('#chkPrintInReverseOrder').prop('checked');
+
+            cpj.files.push(my_file);
+
+            //Send print job to printer!
+            cpj.sendToClient();
+            //myWindow.close();    
+        }
+    }
+	
+	//cetak invoice
+	function printInvoice() {
+        if (jspmWSStatus()) {
+
+            //Create a ClientPrintJob
+            var cpj = new JSPM.ClientPrintJob();
+
+            //Set Printer info
+            var myPrinter = new JSPM.InstalledPrinter($('#lstPrinters').val());
+            myPrinter.paperName = "<?=$jprinter['kwitansi'];?>";
+            myPrinter.trayName = $('#lstPrinterTrays').val();
+                
+            cpj.clientPrinter = myPrinter;
+
+            //Set PDF file
+            var my_file = new JSPM.PrintFilePDF("../cetak/invoice.pdf", JSPM.FileSourceType.URL, 'MyFile.pdf', 1);
+            my_file.printRotation = JSPM.PrintRotation[$('#lstPrintRotation').val()];
+            my_file.printRange = $('#txtPagesRange').val();
+            my_file.printAnnotations = $('#chkPrintAnnotations').prop('checked');
+            my_file.printAsGrayscale = $('#chkPrintAsGrayscale').prop('checked');
+            my_file.printInReverseOrder = $('#chkPrintInReverseOrder').prop('checked');
+
+            cpj.files.push(my_file);
+
+            //Send print job to printer!
+            cpj.sendToClient();
+            //myWindow.close();    
+        }
+    }
+	
+	//cetak bukti di kartu spp 
+	function printKartuSPP() {
+        if (jspmWSStatus()) {
+
+            //Create a ClientPrintJob
+            var cpj = new JSPM.ClientPrintJob();
+
+            //Set Printer info
+            var myPrinter = new JSPM.InstalledPrinter($('#lstPrinters').val());
+            myPrinter.paperName = "<?=$jprinter['spp'];?>";
+            myPrinter.trayName = $('#lstPrinterTrays').val();
+                
+            cpj.clientPrinter = myPrinter;
+
+            //Set PDF file
+            var my_file = new JSPM.PrintFilePDF("../cetak/kartu-spp.pdf", JSPM.FileSourceType.URL, 'MyFile.pdf', 1);
+            my_file.printRotation = JSPM.PrintRotation[$('#lstPrintRotation').val()];
+            my_file.printRange = $('#txtPagesRange').val();
+            my_file.printAnnotations = $('#chkPrintAnnotations').prop('checked');
+            my_file.printAsGrayscale = $('#chkPrintAsGrayscale').prop('checked');
+            my_file.printInReverseOrder = $('#chkPrintInReverseOrder').prop('checked');
+
+            cpj.files.push(my_file);
+
+            //Send print job to printer!
+            cpj.sendToClient();
+            //myWindow.close();    
+        }
+    }
 	
 	var tabelspp;
 	var tabellain;
@@ -362,7 +495,15 @@ date_default_timezone_set('Asia/Jakarta');
 			e.preventDefault();
 			
 			var uidspp = $(this).data('idspp');
-			PopupCenter('../cetak/cetak-kartu.php?idspp='+uidspp, 'myPop1',800,800);
+			$.ajax({
+				type : 'GET',
+				url : '../cetak/cetak-kartu.php',
+				data :  'idspp='+uidspp,
+				success: function (response) {
+					printSPP();												
+				}
+			});
+			//PopupCenter('../cetak/cetak-kartu.php?idspp='+uidspp, 'myPop1',800,800);
 			
 		});
 		$(document).on('click', '#getBayarlain', function(e){
@@ -417,8 +558,14 @@ date_default_timezone_set('Asia/Jakarta');
 						})
 						.then((willDelete) => {
 						  if (willDelete) {
-							  swal(data.messages, {buttons: false,timer: 500,});
-							  PopupCenter('../cetak/cetak-invoice.php?idinv='+data.messages, 'myPop1',800,800);
+								$.ajax({
+									type : 'GET',
+									url : '../cetak/cetak-invoice.php',
+									data :  'idinv='+data.messages,
+									success: function (response) {
+										printInvoice();												
+									}
+								});
 						  } else {
 							
 						  }
@@ -485,7 +632,15 @@ date_default_timezone_set('Asia/Jakarta');
 		
 			e.preventDefault();
 			var idinv = $(this).data('idinv');
-			PopupCenter('../cetak/cetak-invoice.php?idinv='+idinv, 'Cetak Invoice',800,800);
+			$.ajax({
+				type : 'GET',
+				url : '../cetak/cetak-invoice.php',
+				data :  'idinv='+idinv,
+				success: function (response) {
+					printInvoice();												
+				}
+			});
+			//PopupCenter('../cetak/cetak-invoice.php?idinv='+idinv, 'Cetak Invoice',800,800);
 			
 		});
 		$(document).on('click', '#gethapus', function(e){
@@ -625,6 +780,25 @@ date_default_timezone_set('Asia/Jakarta');
 						return false;
 					});
 		
+		$('#lihatinvoice').on('show.bs.modal', function (e) {
+            var idinv = $(e.relatedTarget).data('idinv');
+			
+			//menggunakan fungsi ajax untuk pengambilan data
+				$.ajax({
+					type : 'post',
+					url : '../modul/pembayaran/lihat-invoice.php',
+					data :  'idinv='+idinv,
+					beforeSend: function()
+							{	
+								$(".fetched-data1").html('<i class="fa fa-spinner fa-pulse fa-fw"></i> Loading ...');
+							},
+					success : function(data){
+					$('.fetched-data1').html(data);//menampilkan data ke dalam modal
+					}
+				});
+			
+         });
+		
 		$('#cetakkartu').on('show.bs.modal', function (e) {
             var siswa = $('#siswa').val();			
 			var tapel = $('#tapel').val();
@@ -666,7 +840,15 @@ date_default_timezone_set('Asia/Jakarta');
 
 										// remove the error 
 										//$("#cetakkartu").modal('hide');
-										PopupCenter('../cetak/cetak-kartu-spp.php?ids='+response.ids+'&tapel='+response.tapel+'&jenis='+response.jenis+'&bulan='+response.bln, 'myPop1',800,800);
+										$.ajax({
+											type : 'GET',
+											url : '../cetak/cetak-kartu-spp.php',
+											data :  'ids='+response.ids+'&tapel='+response.tapel+'&jenis='+response.jenis+'&bulan='+response.bln,
+											success: function (data) {
+												printKartuSPP();												
+											}
+										});
+										//PopupCenter('../cetak/cetak-kartu-spp.php?ids='+response.ids+'&tapel='+response.tapel+'&jenis='+response.jenis+'&bulan='+response.bln, 'myPop1',800,800);
 									} else {
 										swal(response.messages, {buttons: false,timer: 2000,});
 									}

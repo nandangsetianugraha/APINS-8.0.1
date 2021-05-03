@@ -100,7 +100,7 @@ $(document).ready(function(){
 			dataType: 'json',
 			success: function (data) {
 				if(data.success===true){
-					PopupCenter('../cetak/cetak-spp.php?pdid='+data.pdid+'&tapel='+data.tapel, 'Cetak Blanko Kartu',800,800);
+					PopupCenter('../cetak/cetak-spp.php?pdid='+data.pdid+'&tapel='+data.tapel, 'Cetak Blanko Kartu',500,550);
 				}else{
 					swal(data.messages, {buttons: false,timer: 500,});
 				}				

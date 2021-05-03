@@ -93,7 +93,7 @@ function namahari($tanggal){
 	$tglakhir=$_GET['tglakhir'];
 	$jenis=$_GET['jenis'];
 	$tapel=$_GET['tapel'];
-	$jprinter=$connect->query("select * from printer")->fetch_assoc();
+	$jprinter=$connect->query("select * from printer where status='1'")->fetch_assoc();
 		$pdf=new exFPDF('L','mm',array(215,330));
 		$pdf->AddPage(); 
 		$pdf->SetFont('helvetica','',10);

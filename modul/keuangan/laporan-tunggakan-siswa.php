@@ -28,15 +28,22 @@ $bln = array("Juli", "Agustus", "September", "Oktober", "November", "Desember", 
 		<?php
 		$sql1="select * from penempatan where tapel='$tapel' order by rombel asc";
 		$query1 = $connect->query($sql1);
+		$totaltarif=0;
 		$jumlahtotal=0;
 		$dibayar=0;
 		$jumlahsisa=0;
 		while($m=$query1->fetch_assoc()) {
 			$idpd=$m['peserta_didik_id'];
-			$jumlahtunggakan=$connect->query("select * from tunggakan_lain where peserta_didik_id='$idpd' and tapel='$tapel' and jenis='$jenis'")->fetch_assoc();
+			if($jenis==1){
+				$jumlahtunggakan=$connect->query("select * from tarif_spp where peserta_didik_id='$idpd'")->fetch_assoc();
+				$totaltarif=12*$jumlahtunggakan['tarif'];
+			}else{
+				$jumlahtunggakan=$connect->query("select * from tunggakan_lain where peserta_didik_id='$idpd' and tapel='$tapel' and jenis='$jenis'")->fetch_assoc();
+				$totaltarif=$jumlahtunggakan['tarif'];
+			}
 			$jumlahbayar=$connect->query("select sum(bayar) as jumlahbayar from pembayaran where peserta_didik_id='$idpd' and tapel='$tapel' and jenis='$jenis'")->fetch_assoc();
-			$sisa=$jumlahtunggakan['tarif']-$jumlahbayar['jumlahbayar'];
-			$jumlahtotal=$jumlahtotal+$jumlahtunggakan['tarif'];
+			$sisa=$totaltarif-$jumlahbayar['jumlahbayar'];
+			$jumlahtotal=$jumlahtotal+$totaltarif;
 			$dibayar=$dibayar+$jumlahbayar['jumlahbayar'];
 			$jumlahsisa=$jumlahsisa+$sisa;
 			if($sisa==0){
@@ -45,7 +52,7 @@ $bln = array("Juli", "Agustus", "September", "Oktober", "November", "Desember", 
 		<tr>
 			<td><?=$m['nama'];?></td>
 			<td><?=$m['rombel'];?></td>
-			<td><?=rupiah($jumlahtunggakan['tarif']);?></td>
+			<td><?=rupiah($totaltarif);?></td>
 			<td><?=rupiah($jumlahbayar['jumlahbayar']);?></td>
 			<td><?=rupiah($sisa);?></td>
 		</tr>

@@ -94,7 +94,7 @@ $siswa=$_GET['siswa'];
 $bulan=(int) $_GET['bulan'];
 $jenis=$_GET['jenis'];
 $thn=isset($_GET['thn']) ? $_GET['thn'] : date("Y");
-$jprinter=$connect->query("select * from printer")->fetch_assoc();
+$jprinter=$connect->query("select * from printer where status='1'")->fetch_assoc();
 $bln = array("Juli", "Agustus", "September", "Oktober", "November", "Desember", "Januari", "Februari", "Maret", "April", "Mei", "Juni");
 		$pdf=new exFPDF('P','mm',array(215,330));
 		$pdf->AddPage(); 

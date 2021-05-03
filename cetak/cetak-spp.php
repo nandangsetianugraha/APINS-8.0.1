@@ -92,7 +92,7 @@ $pdid=$_GET['pdid'];
 $tapel=$_GET['tapel'];
 $siswa=$connect->query("select * from siswa where peserta_didik_id='$pdid'")->fetch_assoc();
 $kelas=$connect->query("select * from penempatan where peserta_didik_id='$pdid' and tapel='$tapel'")->fetch_assoc();
-$jprinter=$connect->query("select * from printer")->fetch_assoc();
+$jprinter=$connect->query("select * from printer where status='1'")->fetch_assoc();
 $nomor=$siswa['nis'].".png";
 $thn=isset($_GET['thn']) ? $_GET['thn'] : date("Y");
 $bln = array("Juli", "Agustus", "September", "Oktober", "November", "Desember", "Januari", "Februari", "Maret", "April", "Mei", "Juni");
@@ -157,90 +157,45 @@ $bln = array("Juli", "Agustus", "September", "Oktober", "November", "Desember", 
 		$table2->easyCell('OPR','font-size:8;valign:M;align:C;border:1');
 		$table2->easyCell('PARAF','font-size:8;valign:M;align:C;border:1');
 		$table2->printRow();
-		$table2->rowStyle('min-height:6');
-		$table2->easyCell('','font-size:8;align:c;border:L');
-		$table2->easyCell('','font-size:8;align:c;border:L');
-		$table2->easyCell('','font-size:8;align:c;border:L');
-		$table2->easyCell('','font-size:8;align:c;border:L');
-		$table2->easyCell('','font-size:8;align:c;border:LR');
-		$table2->printRow();
-		$table2->rowStyle('min-height:6');
-		$table2->easyCell('','font-size:8;align:c;border:L');
-		$table2->easyCell('','font-size:8;align:c;border:L');
-		$table2->easyCell('','font-size:8;align:c;border:L');
-		$table2->easyCell('','font-size:8;align:c;border:L');
-		$table2->easyCell('','font-size:8;align:c;border:LR');
-		$table2->printRow();
-		$table2->rowStyle('min-height:6');
-		$table2->easyCell('','font-size:8;align:c;border:L');
-		$table2->easyCell('','font-size:8;align:c;border:L');
-		$table2->easyCell('','font-size:8;align:c;border:L');
-		$table2->easyCell('','font-size:8;align:c;border:L');
-		$table2->easyCell('','font-size:8;align:c;border:LR');
-		$table2->printRow();
-		$table2->rowStyle('min-height:6');
-		$table2->easyCell('','font-size:8;align:c;border:L');
-		$table2->easyCell('','font-size:8;align:c;border:L');
-		$table2->easyCell('','font-size:8;align:c;border:L');
-		$table2->easyCell('','font-size:8;align:c;border:L');
-		$table2->easyCell('','font-size:8;align:c;border:LR');
-		$table2->printRow();
-		$table2->rowStyle('min-height:6');
-		$table2->easyCell('','font-size:8;align:c;border:L');
-		$table2->easyCell('','font-size:8;align:c;border:L');
-		$table2->easyCell('','font-size:8;align:c;border:L');
-		$table2->easyCell('','font-size:8;align:c;border:L');
-		$table2->easyCell('','font-size:8;align:c;border:LR');
-		$table2->printRow();
-		$table2->rowStyle('min-height:6');
-		$table2->easyCell('','font-size:8;align:c;border:L');
-		$table2->easyCell('','font-size:8;align:c;border:L');
-		$table2->easyCell('','font-size:8;align:c;border:L');
-		$table2->easyCell('','font-size:8;align:c;border:L');
-		$table2->easyCell('','font-size:8;align:c;border:LR');
-		$table2->printRow();
-		$table2->rowStyle('min-height:6');
-		$table2->easyCell('','font-size:8;align:c;border:L');
-		$table2->easyCell('','font-size:8;align:c;border:L');
-		$table2->easyCell('','font-size:8;align:c;border:L');
-		$table2->easyCell('','font-size:8;align:c;border:L');
-		$table2->easyCell('','font-size:8;align:c;border:LR');
-		$table2->printRow();
-		$table2->rowStyle('min-height:6');
-		$table2->easyCell('','font-size:8;align:c;border:L');
-		$table2->easyCell('','font-size:8;align:c;border:L');
-		$table2->easyCell('','font-size:8;align:c;border:L');
-		$table2->easyCell('','font-size:8;align:c;border:L');
-		$table2->easyCell('','font-size:8;align:c;border:LR');
-		$table2->printRow();
-		$table2->rowStyle('min-height:6');
-		$table2->easyCell('','font-size:8;align:c;border:L');
-		$table2->easyCell('','font-size:8;align:c;border:L');
-		$table2->easyCell('','font-size:8;align:c;border:L');
-		$table2->easyCell('','font-size:8;align:c;border:L');
-		$table2->easyCell('','font-size:8;align:c;border:LR');
-		$table2->printRow();
-		$table2->rowStyle('min-height:6');
-		$table2->easyCell('','font-size:8;align:c;border:L');
-		$table2->easyCell('','font-size:8;align:c;border:L');
-		$table2->easyCell('','font-size:8;align:c;border:L');
-		$table2->easyCell('','font-size:8;align:c;border:L');
-		$table2->easyCell('','font-size:8;align:c;border:LR');
-		$table2->printRow();
-		$table2->rowStyle('min-height:6');
-		$table2->easyCell('','font-size:8;align:c;border:L');
-		$table2->easyCell('','font-size:8;align:c;border:L');
-		$table2->easyCell('','font-size:8;align:c;border:L');
-		$table2->easyCell('','font-size:8;align:c;border:L');
-		$table2->easyCell('','font-size:8;align:c;border:LR');
-		$table2->printRow();
-		$table2->rowStyle('min-height:6');
-		$table2->easyCell('','font-size:8;align:c;border:LB');
-		$table2->easyCell('','font-size:8;align:c;border:LB');
-		$table2->easyCell('','font-size:8;align:c;border:LB');
-		$table2->easyCell('','font-size:8;align:c;border:LB');
-		$table2->easyCell('','font-size:8;align:c;border:LRB');
-		$table2->printRow();
+		for ($x = 1; $x <= 12; $x++) {
+			if($x==12){
+				if($x % 2 == 0){
+					$table2->rowStyle('min-height:6');
+					$table2->easyCell('','font-size:8;align:c;border:LB');
+					$table2->easyCell('','font-size:8;align:c;border:LB');
+					$table2->easyCell('','font-size:8;align:c;border:LB');
+					$table2->easyCell('','font-size:8;align:c;border:LB');
+					$table2->easyCell('','font-size:8;align:c;border:LRB');
+					$table2->printRow();
+				}else{
+					$table2->rowStyle('min-height:6;bgcolor:#E6E6E6');
+					$table2->easyCell('','font-size:8;align:c;border:LB');
+					$table2->easyCell('','font-size:8;align:c;border:LB');
+					$table2->easyCell('','font-size:8;align:c;border:LB');
+					$table2->easyCell('','font-size:8;align:c;border:LB');
+					$table2->easyCell('','font-size:8;align:c;border:LRB');
+					$table2->printRow();
+				};
+			}else{
+				if($x % 2 == 0){
+					$table2->rowStyle('min-height:6');
+					$table2->easyCell('','font-size:8;align:c;border:L');
+					$table2->easyCell('','font-size:8;align:c;border:L');
+					$table2->easyCell('','font-size:8;align:c;border:L');
+					$table2->easyCell('','font-size:8;align:c;border:L');
+					$table2->easyCell('','font-size:8;align:c;border:LR');
+					$table2->printRow();
+				}else{
+					$table2->rowStyle('min-height:6;bgcolor:#E6E6E6');
+					$table2->easyCell('','font-size:8;align:c;border:L');
+					$table2->easyCell('','font-size:8;align:c;border:L');
+					$table2->easyCell('','font-size:8;align:c;border:L');
+					$table2->easyCell('','font-size:8;align:c;border:L');
+					$table2->easyCell('','font-size:8;align:c;border:LR');
+					$table2->printRow();
+				};
+			};
+		};
 		$table2->endTable();
 		
 		$table2=new easyTable($pdf, '{10,40,10,50}');
@@ -332,48 +287,25 @@ $data['title'] = 'Cetak Kartu SPP';
             <div class="card">
                 <div class="card-statistic-4">
 				  <div class="form-row">
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-12">
 						<input type="hidden" name="txtPdfFile" id="txtPdfFile" value="cetak-spp.pdf" />
 						<label>Printers:</label>
 						<select class="form-control select2" name="lstPrinters" id="lstPrinters" onchange="showSelectedPrinterInfo();" >
 						<option selected><?=$jprinter['nama'];?></option>
 						</select>
 					</div>
-					<div class="form-group col-md-6">
-						<label>Supported Trays:</label>
-						<select class="form-control select2" name="lstPrinterTrays" id="lstPrinterTrays" >
-						</select>
-					</div>
 				  </div>
 				  <div class="form-row">
-					<div class="form-group col-md-6">
+					<div class="form-group col-md-12">
 						<label>Supported Papers:</label>
 						<select class="form-control select2" name="lstPrinterPapers" id="lstPrinterPapers" >
 						<option selected><?=$jprinter['spp'];?></option>
 						</select>
 					</div>
-					<div class="form-group col-md-6">
-						<label>Print Rotation (Clockwise):</label>
-						<select class="form-control select2" name="lstPrintRotation" id="lstPrintRotation" >
-							<option>None</option>
-							<option>Rot90</option>
-							<option>Rot180</option>
-							<option>Rot270</option>
-						</select>
-					</div>
 				  </div>
 					<div class="form-group">
-						<label>Pages Range: [e.g. 1,2,3,10-15]</label>
+						<label>Halaman :</label>
 						<input type="text" id="txtPagesRange" />
-					</div>
-					<div class="form-group">
-						<label><input id="chkPrintInReverseOrder" type="checkbox" value=""> Print In Reverse Order?</label>
-					</div>
-					<div class="form-group">
-						<label><input id="chkPrintAnnotations" type="checkbox" value=""> Print Annotations? <span><em>Windows Only</em></span></label>
-					</div>
-					<div class="form-group">
-						<label><input id="chkPrintAsGrayscale" type="checkbox" value=""> Print As Grayscale? <span><em>Windows Only</em></span></label>
 					</div>
                 </div>
 				<div class="card-footer text-right">
