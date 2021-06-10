@@ -1099,9 +1099,9 @@ if($adaabsen>0){
 	$ijin=$absensi['ijin'];
 	$alfa=$absensi['alfa'];
 }else{
-	$sakit='_________';
-	$ijin='_________';
-	$alfa='_________';
+	$sakit=' ';
+	$ijin=' ';
+	$alfa=' ';
 };
 if($smt==1){
 	//Absensi

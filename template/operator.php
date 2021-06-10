@@ -10,6 +10,9 @@
               <a href="./" class="nav-link"><i data-feather="monitor"></i><span>Beranda</span></a>
             </li>
 			<li class="dropdown">
+              <a href="./artikel" class="nav-link"><i data-feather="edit"></i><span>Artikel</span></a>
+            </li>
+			<li class="dropdown">
               <a href="#" class="menu-toggle nav-link has-dropdown"><i
                   data-feather="briefcase"></i><span>Manajemen Sekolah</span></a>
               <ul class="dropdown-menu">

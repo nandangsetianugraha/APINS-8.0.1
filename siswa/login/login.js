@@ -5,7 +5,7 @@ $(document).ready(function () {
         var username = $("#username").val(), password = $("#password").val();
 
         if ((username === "") || (password === "")) {
-            $("#message").html("<div class=\"alert alert-danger alert-dismissable\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>Please enter a username and a password</div>");
+            $("#message").html('<div class="alert alert-danger" role="alert"><h4 class="alert-heading">Error</h4><p>Silahkan masukkan nama pengguna dan kata sandi dengan benar</p></div>');
         } else {
             $.ajax({
                 type: "POST",
@@ -15,7 +15,7 @@ $(document).ready(function () {
                 success: function (html) {
                     //console.log(html.response + ' ' + html.username+ ' ' + html.lokasi);
                     if (html.response === 'true') {
-                        $("#message").html('<div class="empty-state" data-height="100"><div class="empty-state-icon"><i class="fas fa-check-double"></i></div><h2>Login Berhasil</h2><p class="lead">Anda akan dialihkan ke Halaman Admin</p></div>');
+                        $("#message").html('<div class="alert alert-success" role="alert"><h4 class="alert-heading">Login Sukses!</h4><p>Anda akan dialihkan ke Halaman Utama</p></div>');
 						setTimeout(function () {
 							location.reload();
 						},3000);

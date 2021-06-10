@@ -9,6 +9,9 @@
             <li class="dropdown">
               <a href="./" class="nav-link"><i data-feather="monitor"></i><span>Beranda</span></a>
             </li>
+			<li class="dropdown">
+              <a href="./artikel" class="nav-link"><i data-feather="edit"></i><span>Artikel</span></a>
+            </li>
 			<?php if($norombel){}else{ ?>
             <li class="menu-header">Penilaian</li>
             <li class="dropdown">

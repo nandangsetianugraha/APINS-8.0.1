@@ -95,6 +95,7 @@ $idptk=isset($_GET['idptk']) ? $_GET['idptk'] : '0';
 					if($idptk=="0"){
 					}else{
 						$biom = mysqli_fetch_array(mysqli_query($koneksi, "select * from ptk where ptk_id='$idptk'"));
+						$biou = mysqli_fetch_array(mysqli_query($koneksi, "select * from pengguna where ptk_id='$idptk'"));
 						//$rombel = mysqli_fetch_array(mysqli_query($koneksi, "select * from penempatan where peserta_didik_id='$idsiswa' and tapel='$tapel'"));
 						if(file_exists( $_SERVER{'DOCUMENT_ROOT'} . "/images/ptk/".$biom['gambar'])){
 							$avatarm=$biom['gambar'];
@@ -126,7 +127,7 @@ $idptk=isset($_GET['idptk']) ? $_GET['idptk'] : '0';
 							<div class="row">
 							  <div class="form-group col-md-12 col-12">
 								<label>Username</label>
-								<input type="text" name="username" class="form-control" value="<?=$biop['username'];?>">
+								<input type="text" name="username" class="form-control" value="<?=$biou['username'];?>">
 								<input type="hidden" name="ids" class="form-control" value="<?=$idptk;?>">
 							  </div>
 							</div>

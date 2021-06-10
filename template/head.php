@@ -101,6 +101,7 @@
   <link rel="stylesheet" href="<?= base_url(); ?>assets/bundles/bootstrap-timepicker/css/bootstrap-timepicker.min.css">
   <link rel="stylesheet" href="<?= base_url(); ?>assets/bundles/bootstrap-tagsinput/dist/bootstrap-tagsinput.css">
   <link rel="stylesheet" href="<?= base_url(); ?>assets/bundles/pretty-checkbox/pretty-checkbox.min.css">
+  <link rel="stylesheet" href="<?= base_url(); ?>assets/bundles/summernote/summernote-bs4.css">
   <!-- Template CSS -->
   <link rel="stylesheet" href="<?= base_url(); ?>assets/css/style.css">
   <link rel="stylesheet" href="<?= base_url(); ?>assets/css/components.css">

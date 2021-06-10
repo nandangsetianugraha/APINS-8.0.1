@@ -58,7 +58,7 @@ if($kelas==0){
 		$jk=$pn['jk'];
 		$ids=$pn['id'];
 		$rmb=$row['rombel'];
-		if(file_exists("https://apins.sdi-aljannah.web.id/images/siswa/".$pn['avatar'])){
+		if(file_exists($_SERVER{'DOCUMENT_ROOT'} . "/images/siswa/".$pn['avatar'])){
 			$avatarm=$pn['avatar'];
 		}else{
 			$avatarm="user-default.png";

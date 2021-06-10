@@ -14,6 +14,8 @@
   <script src="<?= base_url(); ?>assets/bundles/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
   <script src="<?= base_url(); ?>assets/bundles/select2/dist/js/select2.full.min.js"></script>
   <script src="<?= base_url(); ?>assets/bundles/jquery-selectric/jquery.selectric.min.js"></script>
+  <script src="<?= base_url(); ?>assets/bundles/summernote/summernote-bs4.js"></script>
+  <script src="<?= base_url(); ?>assets/bundles/upload-preview/assets/js/jquery.uploadPreview.min.js"></script>
   <!-- Template JS File -->
   <script src="<?= base_url(); ?>assets/js/scripts.js"></script>
   <!-- Custom JS File -->

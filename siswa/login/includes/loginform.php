@@ -40,7 +40,7 @@ class LoginForm extends DbConn
 
             //Too many failed attempts
 			$success = '
-			<div class="empty-state" data-height="100"><div class="empty-state-icon bg-danger"><i class="fas fa-times"></i></div><h2>Anda diblokir</h2><p class="lead">Kesempatan login sudah melebihi 5x...tunggu sekitar '.$timeout_minutes.' menit sebelum melakukan login ulang</p><a href="./" class="btn btn-warning mt-4">Coba Lagi</a></div>
+			<div class="alert alert-danger" role="alert"><h4 class="alert-heading">Akun Diblokir</h4><p>Kesempatan login sudah melebihi 5x...tunggu sekitar '.$timeout_minutes.' menit sebelum melakukan login ulang</p></div>
 			';
         
         } else {
@@ -64,7 +64,7 @@ class LoginForm extends DbConn
 
                 //Wrong username or password
 				$success = '
-				<div class="empty-state" data-height="100"><div class="empty-state-icon bg-danger"><i class="fas fa-times"></i></div><h2>Login Gagal</h2><p class="lead">Username atau Password tidak ditemukan!</p><a href="./" class="btn btn-warning mt-4">Coba Lagi</a></div>
+				<div class="alert alert-danger" role="alert"><h4 class="alert-heading">Login Gagal</h4><p>Nama pengguna dan kata Sandi tidak sesuai</p><hr/><p class="mb-0"><a href="./" class="btn btn-warning mt-4">Coba Lagi</a></p></div>
 				';
 
             }
