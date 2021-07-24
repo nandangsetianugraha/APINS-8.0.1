@@ -60,7 +60,7 @@ if($surah==0){
 				};
 				if($edit){
 					$nh='
-						<span class="input form-control form-control-sm" contenteditable="true" data-old_value="'.$nHar.'"  onBlur="saveJuzamma(this,\'nilai\',\''.$idp.'\',\''.$ab.'\',\''.$smt.'\',\''.$tapel.'\',\''.$surah.'\')" onClick="highlightEdit(this);">'.$nHar.'</span>
+						<span class="input form-control form-control-sm" contenteditable="true" data-old_value="'.$nHar.'"  onBlur="saveArbain(this,\'nilai\',\''.$idp.'\',\''.$ab.'\',\''.$smt.'\',\''.$tapel.'\',\''.$surah.'\')" onClick="highlightEdit(this);">'.$nHar.'</span>
 					';
 				}else{
 					$nh=$nHar;
@@ -78,7 +78,7 @@ if($surah==0){
 				};
 				if($edit){
 					$nh='
-						<span class="input form-control form-control-sm" contenteditable="true" data-old_value="'.$nHar.'"  onBlur="saveJuzamma(this,\'nilai\',\''.$idp.'\',\''.$ab.'\',\''.$smt.'\',\''.$tapel.'\',\''.$surah.'\')" onClick="highlightEdit(this);">'.$nHar.'</span>
+						<span class="input form-control form-control-sm" contenteditable="true" data-old_value="'.$nHar.'"  onBlur="saveSurah(this,\'nilai\',\''.$idp.'\',\''.$ab.'\',\''.$smt.'\',\''.$tapel.'\',\''.$surah.'\')" onClick="highlightEdit(this);">'.$nHar.'</span>
 					';
 				}else{
 					$nh=$nHar;
@@ -96,7 +96,7 @@ if($surah==0){
 				};
 				if($edit){
 					$nh='
-						<span class="input form-control form-control-sm" contenteditable="true" data-old_value="'.$nHar.'"  onBlur="saveJuzamma(this,\'nilai\',\''.$idp.'\',\''.$ab.'\',\''.$smt.'\',\''.$tapel.'\',\''.$surah.'\')" onClick="highlightEdit(this);">'.$nHar.'</span>
+						<span class="input form-control form-control-sm" contenteditable="true" data-old_value="'.$nHar.'"  onBlur="saveDoa(this,\'nilai\',\''.$idp.'\',\''.$ab.'\',\''.$smt.'\',\''.$tapel.'\',\''.$surah.'\')" onClick="highlightEdit(this);">'.$nHar.'</span>
 					';
 				}else{
 					$nh=$nHar;
@@ -114,7 +114,7 @@ if($surah==0){
 				};
 				if($edit){
 					$nh='
-						<span class="input form-control form-control-sm" contenteditable="true" data-old_value="'.$nHar.'"  onBlur="saveJuzamma(this,\'nilai\',\''.$idp.'\',\''.$ab.'\',\''.$smt.'\',\''.$tapel.'\',\''.$surah.'\')" onClick="highlightEdit(this);">'.$nHar.'</span>
+						<span class="input form-control form-control-sm" contenteditable="true" data-old_value="'.$nHar.'"  onBlur="saveHadits(this,\'nilai\',\''.$idp.'\',\''.$ab.'\',\''.$smt.'\',\''.$tapel.'\',\''.$surah.'\')" onClick="highlightEdit(this);">'.$nHar.'</span>
 					';
 				}else{
 					$nh=$nHar;

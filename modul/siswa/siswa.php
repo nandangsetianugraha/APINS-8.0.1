@@ -35,6 +35,7 @@ if($kelas==0){
 		$actionButton = '
 			<a href="siswa?idsiswa='.$idp.'" class="btn btn-icon btn-sm btn-warning"><i class="fas fa-edit"></i></a>
 			<a href="raport?idsiswa='.$idp.'" class="btn btn-icon btn-sm btn-warning"><i class="far fa-address-book"></i></a>
+			<button class="btn btn-info btn-border btn-round btn-sm" type="button" data-toggle="modal" data-target="#outMemberModal" onclick="outMember('.$row['id_rombel'].')"><i class="fa fa-trash"></i> Out</button>
 			';
 		$tgl=ucfirst(strtolower($row['tempat'])).", ".TanggalIndo($row['tanggal']);
 		$namasis=$row['nama'];

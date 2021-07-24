@@ -374,6 +374,43 @@ $idsiswa=isset($_GET['idsiswa']) ? $_GET['idsiswa'] : '0';
 					</div>
 				</div>
 			</div>
+		
+		<!--Mutasi-->
+		<div class="modal fade" id="outMemberModal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Mutasi Siswa</h4>
+              </div>
+                        <form class="form" action="../modul/siswa/penempatansiswa.php" method="POST" id="penempatanMemberForm">
+						<div class="modal-body">
+							<div class="form-group form-group-default">
+								<label>Nama Siswa</label>
+								<input type="hidden" class="form-control" id="tapel" name="tapel" value="<?=$tapel;?>">
+								<input id="penempatannama" type="text" name="penempatannama" autocomplete=off class="form-control" placeholder="Nama Lengkap">
+							</div>
+							<div class="form-group form-group-default">
+								<label>Kelas</label>
+								<select class="form-control" name="kelas" id="kelas">
+									<?php 
+									$sql_mk=mysqli_query($koneksi, "select * from rombel where tapel='$tapel' order by nama_rombel asc");
+									while($nk=mysqli_fetch_array($sql_mk)){
+									?>
+									<option value="<?php echo $nk['nama_rombel']; ?>" <?php if($kelas==$nk['nama_rombel']){echo "selected";} ?>>Kelas <?php echo $nk['nama_rombel']; ?></option>
+									<?php };?>
+								</select>
+							</div>
+                        </div>
+                        <div class="modal-footer outMemberModal">
+                            <button type="button" class="btn btn-info btn-border btn-round" data-dismiss="modal">Tidak</button>
+                            <button type="submit" class="btn btn-info btn-border btn-round">Ya</button>
+                        </div>
+						</form>
+			</div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
 		<?php include "../template/setting.php"; ?>
       </div>
       <?php include "../template/footer.php"; ?>

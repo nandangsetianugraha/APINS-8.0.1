@@ -46,8 +46,10 @@ date_default_timezone_set('Asia/Jakarta');
 							<?php 
 							$sql_mk=mysqli_query($koneksi, "select * from siswa where status='1' order by nama asc");
 							while($nk=mysqli_fetch_array($sql_mk)){
+								$idsiswa=$nk['peserta_didik_id'];
+								$rmb=mysqli_fetch_array(mysqli_query($koneksi, "select * from penempatan where peserta_didik_id='$idsiswa' and tapel='$tapel'"));
 							?>
-							<option value="<?=$nk['peserta_didik_id'];?>"><?=$nk['nama'];?></option>
+							<option value="<?=$nk['peserta_didik_id'];?>"><?=$nk['nama'];?> [<?=$rmb['rombel'];?>]</option>
 							<?php };?>
 						</select>
 					</div>

@@ -23,6 +23,9 @@
               <a href="siswa" class="nav-link"><i data-feather="users"></i><span>Daftar Siswa</span></a>
             </li>
 			<li class="dropdown">
+              <a href="nasabah" class="nav-link"><i data-feather="users"></i><span>Daftar Nasabah</span></a>
+            </li>
+			<li class="dropdown">
               <a href="tarif" class="nav-link"><i data-feather="shopping-bag"></i><span>Besar Tarif</span></a>
             </li>
 			<li class="dropdown">
